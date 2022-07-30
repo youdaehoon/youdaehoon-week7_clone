@@ -42,7 +42,7 @@ const MakePost = () => {
     };
     
     console.log("전송하는 data모양은", data);
-    navigate("login");
+    
     // const apiImg = axios.create({
     //   baseURL: "http://13.125.106.21:8080",
     //   headers: {
