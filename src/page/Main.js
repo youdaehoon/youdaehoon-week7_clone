@@ -1,15 +1,15 @@
-import React from 'react'
-import styled from 'styled-components';
+import React from "react";
+import styled from "styled-components";
 // import { Button } from '@material-ui/core';
 
 import { useDispatch, useSelector } from "react-redux";
-import { useNavigate } from 'react-router-dom'
+import { useNavigate } from "react-router-dom";
 
-import Cards from '../components/Cards';
+import Cards from "../components/Cards";
 
 const Main = () => {
-  const data = useSelector((state) => state.post.post)
-  console.log("나야나", data)
+  const data = useSelector((state) => state.post.post);
+  console.log("나야나", data);
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -18,24 +18,27 @@ const Main = () => {
   // 디테일 페이지에서 연결..! (card)
 
   return (
-
     <>
-     <div style={{"backgroundColor": "#efefef", "width":"100%", "height" : "350px"
-    }}/>
-        <div>
-            <h2>중고거래 인기매물</h2>
-            
-              {data.map((v, idx) =>
-              <CardBox
-              onClick={() => {
-                navigate(`/detail/${v.postId}`)
-              }}>
-                <Cards
-              post={[v]} key={idx} />
-              </CardBox>)}
-        </div>
+      <div
+        style={{ backgroundColor: "#efefef", width: "100%", height: "350px" }}
+      />
+      <div>
+        <h2>중고거래 인기매물</h2>
+
+        {data.map((v, idx) => (
+          <CardBox
+            onClick={() => {
+              navigate(`/detail/${v.postId}`);
+            }}
+           
+            key={idx}
+          >
+            <Cards  post={v}/>
+          </CardBox>
+        ))}
+      </div>
     </>
-  )
+  );
 };
 
 const CardBox = styled.div`
@@ -45,6 +48,4 @@ const CardBox = styled.div`
   // background-color: blue;
 `;
 
-
-
-export default Main
+export default Main;
