@@ -4,20 +4,11 @@ import { produce } from "immer"; //immer : 불변성 관리
 // import moment from "moment"; // Date객체와 유사
 import axios from "axios"; //axios: node.js와 브라우저를 위한 Promise 기반 HTTP 클라이언트
 
-// import cookie from 'react-cookie'
-import { setCookie, deleteCookie } from "../../shared/Cookie";
-
-
 //Actions
 const LOAD = "post/LOAD";
 const UPDATE = "post/UPDATE";
 const CREATE_POST = "post/CREATE_POST";
 
-const LOGIN = "users/LOGIN"; // 로그인
-const LOGOUT = "users/LOGOUT"; // 로그아웃
-
-const logIn = createAction(LOGIN, (user) => ({user}));
-const logOut = createAction(LOGOUT, (user) => ({user}));
 
 //reducer이 사용할 initialState
 const initialState = {
@@ -27,7 +18,7 @@ const initialState = {
           title: "개발자 머그컵 팝니다",
           address: "대구 달서구 도원동",
           price:  5000,
-          image: "",
+          image: "http://economychosun.com/query/upload/348/20200517222140_wlbxvfak.jpg",
           category: "ETC",
           status: "판매 상태",
           createdAt: "시간",
@@ -39,7 +30,7 @@ const initialState = {
         title: "개발자 머그컵 팝니다",
         address: "대구 달서구 도원동",
         price:  5000,
-        image: "",
+        image: "https://shop3.daumcdn.net/thumb/R500x500/?fname=http%3A%2F%2Fshop3.daumcdn.net%2Fshophow%2Fp%2FP12871783076.jpg%3Fut%3D20210408163353",
         category: "ETC",
         status: "판매 상태",
         createdAt: "시간",
@@ -51,7 +42,7 @@ const initialState = {
       title: "개발자 머그컵 팝니다",
       address: "대구 달서구 도원동",
       price:  5000,
-      image: "",
+      image: "https://shop3.daumcdn.net/thumb/R500x500/?fname=http%3A%2F%2Fshop3.daumcdn.net%2Fshophow%2Fp%2FI18261130012.jpg%3Fut%3D20220715125905",
       category: "ETC",
       status: "판매 상태",
       createdAt: "시간",
@@ -63,7 +54,7 @@ const initialState = {
     title: "개발자 머그컵 팝니다",
     address: "대구 달서구 도원동",
     price:  5000,
-    image: "",
+    image: "https://shop3.daumcdn.net/thumb/R500x500/?fname=http%3A%2F%2Fshop3.daumcdn.net%2Fshophow%2Fp%2FW17377317922.jpg%3Fut%3D20220509163355",
     category: "ETC",
     status: "판매 상태",
     createdAt: "시간",
@@ -75,22 +66,53 @@ const initialState = {
   title: "개발자 머그컵 팝니다",
   address: "대구 달서구 도원동",
   price:  5000,
-  image: "",
+  image: "https://shop1.daumcdn.net/thumb/R500x500/?fname=http%3A%2F%2Fshop1.daumcdn.net%2Fshophow%2Fp%2FH13076265500.jpg%3Fut%3D20210428125839",
   category: "ETC",
   status: "판매 상태",
   createdAt: "시간",
   like: 5,
   view: 10
 },
-    ],
-    isLoading: false,
+{
+  postId: 36,
+  title: "개발자 머그컵 팝니다",
+  address: "대구 달서구 도원동",
+  price:  5000,
+  image: "https://dnvefa72aowie.cloudfront.net/origin/article/202207/178f72ab016badb02120af28c5ed2f43f480e5f5225fc98aba91637df515a948.webp?q=95&s=1440x1440&t=inside",
+  category: "ETC",
+  status: "판매 상태",
+  createdAt: "시간",
+  like: 5,
+  view: 10
+},
+{
+  postId: 37,
+  title: "개발자 머그컵 팝니다",
+  address: "대구 달서구 도원동",
+  price:  5000,
+  image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTqgBZvVwIq8hraM60fDgwzy8xiJiHE35QYVg&usqp=CAU",
+  category: "ETC",
+  status: "판매 상태",
+  createdAt: "시간",
+  like: 5,
+  view: 10
+},
+{
+  postId: 38,
+  title: "개발자 머그컵 팝니다",
+  address: "대구 달서구 도원동",
+  price:  5000,
+  image: "https://dnvefa72aowie.cloudfront.net/origin/article/202207/f7dcc6751a329bb162a43bcc8317e488f108c161878c0777df7a33c03f11e1a4.webp?q=95&s=1440x1440&t=inside",
+  category: "ETC",
+  status: "판매 상태",
+  createdAt: "시간",
+  like: 5,
+  view: 10
+},
+    ]
   }
 
-
-
 // Action Creators
-
-
 export function loadPost(post) {
     return { type: LOAD, post }
   }
@@ -108,7 +130,7 @@ export function loadPost(post) {
   export const loadPostDB = () => {
     return async function (dispatch) {
       try {
-        const res = await axios.get("http://13.125.106.21:8080/post");
+        const res = await axios.get("http://ec2-54-180-105-24.ap-northeast-2.compute.amazonaws.com/post");
   
         dispatch(loadPost(res.data))
       } catch(error) {
@@ -117,54 +139,32 @@ export function loadPost(post) {
     }
   }
   
-  // // Reducer
-  // export default function reducer(state = initialState, action = {} ) {
-  //   switch (action.type) {
-  //     case "post/LOAD": {
-  //       return { post: action.post }
-  //     }
+  // Reducer
+  export default function reducer(state = initialState, action = {} ) {
+    switch (action.type) {
+      case "post/LOAD": {
+        return { post: action.post }
+      }
   
-  //     case "post/UPDATE": {
-  //       state.post.find((include) => {
-  //         if(include.title === action.title) {
-  //           include.category = action.post.category;
-  //           include.price = action.post.price;
-  //           include.image = action.post.image;
-  //           include.content = action.post.content;
+      case "post/UPDATE": {
+        state.post.find((include) => {
+          if(include.title === action.title) {
+            include.category = action.post.category;
+            include.price = action.post.price;
+            include.image = action.post.image;
+            include.content = action.post.content;
   
-  //           return;
-  //         }
-  //       })
-  //         return {...state}
-  //       }
+            return;
+          }
+        })
+          return {...state}
+        }
   
-  //       case "post/CREATE_POST" : {
-  //         const new_post = [ ...state.post, action.post ]
-  //         return { ...state, post: new_post }
-  //       }
+        case "post/CREATE_POST" : {
+          const new_post = [ ...state.post, action.post ]
+          return { ...state, post: new_post }
+        }
   
-  //     default: return state;
-  //   }
-  // }
-
-
-  export default handleActions({
-    [LOGIN]: (state, action) => produce(state,(draft) => {
-        setCookie("is_login", "success");
-        draft.user = action.payload.user;
-        draft.is_login = true;
-    }),
-    [LOGOUT]: (state, action) => produce(state,(draft) => {
-        deleteCookie("is_login");
-        draft.user = null;
-        draft.is_login = false;
-    })
-  }, initialState);
-
-//action creator export
-const actionCreators = {
-  logIn,
-  logOut
-};
-
-export { actionCreators as userCreators };
+      default: return state;
+    }
+  }

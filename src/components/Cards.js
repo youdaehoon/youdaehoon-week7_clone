@@ -8,50 +8,21 @@ const Cards = (props) => {
     const dispatch = useDispatch();
     const navigate = useNavigate();
     
-    // const gotoDetail = () => {
-    //     navigate(`/detail/${props.postId}`)
-    // }
-    // const { postId } = useParams();
-    // console.log(postId)
     const { image, title, price } = props.post;
     console.log("나는 어디에", props.post)
 
-    // let { postId } = useParams();
-    // const { image, title, price, address } = useParams();
-    // const { postId } = useParams();
-    // console.log(props)
-
-
-    // let { params } = useParams();
-    // console.log(params)
-
-    // useEffect(() => {
-    //     fetch(`${API}/${params.postId}`)
-    //       .then(res => res.json())
-    //       .then(data => {
-    //         setCommentArray(data);
-    //       });
-    //   }, []);
-
   return (
     <>
-    {/* <Item onClick={() => {
-      navigate('/boards/' + data.nickname + '/items')
-    }}></Item> */}
-
             <Card>
                 <CardInner>
-                {/* onClick={() => navigate(`/item/${idx}`)}
-                window.location.href = `/detail/${id}` */}
                     <CardHead>
-                    {/* src={images} */}
-                    <img src={props.image} alt="" />
+                    <img src={props.post.image} alt="" />
                     </CardHead>
                     <CardContents>
-                    <ItemName>{props.title}</ItemName>
+                    <ItemName>{props.post.title}</ItemName>
                     <ItemContentBottom>
-                        <Price>{props.price}</Price>
-                        <Address>{props.Address}</Address>
+                        <Price>{props.post.price}</Price>
+                        <Address>{props.post.Address}</Address>
                     </ItemContentBottom>
                     </CardContents>
                 </CardInner>

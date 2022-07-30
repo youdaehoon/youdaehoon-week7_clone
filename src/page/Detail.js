@@ -1,12 +1,90 @@
-import React from 'react'
+import React from "react";
+// {
+//   postId: “post 아이디”
+//   seller: {
+//       nickname: “닉네임”,
+//       profile: “프로필 사진 주소”,
+//       address: “주소”
+//   }
+//   title: "제목입니다",
+//   category: “카테고리”,
+//   price: 가격,
+//   content: “본문”,
+//   
+//   createdAt: “시간”,
+//   like: 좋아요 수,
+//   view: 조회 수,
+//   image: [
+//       이미지 경로1,
+//       이미지 경로2,
+//       이미지 경로3,
+//       ….
+//   ]
+// }
+const Detail = (props) => {
+  const [dataTest,setdataTest]=React.useState({
+    seller:{
+      nickname:"닉네임",
+      profile:"https://previews.123rf.com/images/jemastock/jemastock1708/jemastock170816693/84685879-%EB%82%A8%EC%9E%90-%EC%96%BC%EA%B5%B4-%EC%BA%90%EB%A6%AD%ED%84%B0-%EC%BA%90%EB%A6%AD%ED%84%B0-%ED%94%84%EB%A1%9C%ED%95%84-%EB%A7%8C%ED%99%94-%EC%9D%B4%EB%AF%B8%EC%A7%80-%EB%B2%A1%ED%84%B0-%EC%9D%BC%EB%9F%AC%EC%8A%A4%ED%8A%B8-%EB%A0%88%EC%9D%B4%EC%85%98.jpg",
+      address:"주소",
+    },
+    title:"제목입니다",
+    category:"카테고리.",
+    
+    price:"가격",
+    content:"제목이 들어갑니다.",
+    status: "판매 상태",
+    createdAt:"시간.",
+    like:"좋아요",
+    view:"조회",
+    image:[
+      "https://t1.daumcdn.net/cfile/blog/9912333A5B46EEA921",
+    ],
+    
 
+    
+  });
+ 
 
-const Detail = props => {
+  // React.useEffect( async() => {
+  //   const apiDetail = axios.create({
+  //       baseURL: "http://13.125.106.21:8080",
+  //       headers: {
+  //         "Content-Type": `application/json`, 
+  //       },
+  //     });
+  
+  //     const CreateBoardAXImg = await apiDetail
+  //       .get("/api/posts/1")
+  //       .then(function (response) {
+  //         console.log(response, "에러안남!!!!!");
+  //         console.log('보내주신data는',response.data)
+  //         setdataTest(response.data)
+  //       })
+  //       .catch(function (error) {
+  //         console.log("에러났음.", error);
+  //   //     });
+  // }, []);
   return (
-    <div>Detail</div>
-  )
-}
+    <div>
+       image: <img src={dataTest.image[0]} style={{width:"50px"}}/>
+      <p />
+      <div>
+        프로필사진 :<img src={dataTest.seller.profile }style={{width:"50px"}} />
+        <div>
+          <div>nickname:{dataTest.seller.nickname}</div>
+          <div>address:{dataTest.seller.address}</div>
+        </div>
+      </div>
+      <div>
+        <div>title:{dataTest.title}</div>
+        <div>price:{dataTest.price}</div>
+        <div>content:{dataTest.content}</div>
+      </div>
+      <div>like:{dataTest.view} view:{dataTest.like}</div>
+    </div>
+  );
+};
 
+export default Detail;
 
-
-export default Detail
