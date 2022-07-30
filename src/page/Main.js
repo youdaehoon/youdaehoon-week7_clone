@@ -12,7 +12,6 @@ const Main = () => {
   console.log("나야나", data)
 
   const dispatch = useDispatch();
-
   const navigate = useNavigate();
 
   // 그림을 그리고 온클릭 => 상세페이지 이동 => 주소(ID를 심어준다)
@@ -25,16 +24,27 @@ const Main = () => {
     }}/>
         <div>
             <h2>중고거래 인기매물</h2>
-            <div>
-              {data.map((v, idx) => <Cards
-              onClick={()=>
-              navigate.push(`/detail/${v.postId}`)}
-              post = {[v]} data={v} key={idx} />)}
-            </div>
+            
+              {data.map((v, idx) =>
+              <CardBox
+              onClick={() => {
+                navigate(`/detail/${v.postId}`)
+              }}>
+                <Cards
+              post={[v]} key={idx} />
+              </CardBox>)}
         </div>
     </>
   )
 };
+
+const CardBox = styled.div`
+  width: 300px;
+  height: 300px;
+  border: 5px solid blue;
+  // background-color: blue;
+`;
+
 
 
 export default Main
