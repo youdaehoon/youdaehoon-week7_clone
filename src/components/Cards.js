@@ -75,6 +75,7 @@ const CardInner = styled.a`
   border: 1px solid rgb(238, 238, 238);
   background: rgb(255, 255, 255);
   display: block;
+  // border-radius: 2em;
 `;
 
 const CardHead = styled.div`
