@@ -45,13 +45,13 @@ const Cards = (props) => {
                 window.location.href = `/detail/${id}` */}
                     <CardHead>
                     {/* src={images} */}
-                    <img src={props.image} alt="" />
+                    <img src={props.post.image} alt="" />
                     </CardHead>
                     <CardContents>
-                    <ItemName>{props.title}</ItemName>
+                    <ItemName>{props.post.title}</ItemName>
                     <ItemContentBottom>
-                        <Price>{props.price}</Price>
-                        <Address>{props.Address}</Address>
+                        <Price>{props.post.price}</Price>
+                        <Address>{props.post.Address}</Address>
                     </ItemContentBottom>
                     </CardContents>
                 </CardInner>
