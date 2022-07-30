@@ -14,8 +14,7 @@ const Cards = (props) => {
     // const { postId } = useParams();
     // console.log(postId)
     const { image, title, price } = props.post;
-    console.log("나는 어디에", props)
-
+    console.log("나는 어디에", props.post)
 
     // let { postId } = useParams();
     // const { image, title, price, address } = useParams();
