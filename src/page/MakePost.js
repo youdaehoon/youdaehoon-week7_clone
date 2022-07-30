@@ -2,19 +2,19 @@ import React from "react";
 import styled from "styled-components";
 import Category from "../components/Category";
 import axios from"axios"
+import { useNavigate } from 'react-router-dom';
 
 const MakePost = () => {
+  const navigate=useNavigate();
   const height = "50px";
   const value = [
-    "디지털기기",
-    "생활가전",
-    "인테리어",
-    "유아",
-    "의류",
-    "게임/취미",
-    "뷰티",
-    "생활가전",
-    "도서",
+    ["의류","CLOTHES"],
+    ["도구","ELECTRIC"],
+    ["스포츠/레져","SPORTS"],
+    ["디지털기기","MEDIA"],
+    ["생활/가공식품","FOOD"],
+    ["기타 중고물품","ETC"],
+    
   ];
 
   const RefPrice = React.useRef(null);
@@ -23,20 +23,43 @@ const MakePost = () => {
   const RefCategory=React.useRef(null);
   const [ImageFile,setImageFile]=React.useState(null);
   
+  
 
   const SetImgByFile=(e)=>{
     setImageFile(e.target.files[0])
     
+    
+    
+    
   }
-  const MakePostAX = () => {
+  const MakePostAX = async() => {
     const data = {
       title: RefTitle.current.value,
-      Category: RefCategory.current.value,
+      category: RefCategory.current.value,
       price: RefPrice.current.value,
       image: ImageFile,
       content: RefContent.current.value,
     };
+    
     console.log("전송하는 data모양은", data);
+    navigate("login");
+    // const apiImg = axios.create({
+    //   baseURL: "http://13.125.106.21:8080",
+    //   headers: {
+    //     authorization: `Bearer ${auth.authorization}`,
+    //     refresh_token: `Bearer ${auth.refresh_token}`,
+    //     "Content-Type": "multipart/form-data",
+    //   },
+    // });
+
+    // const CreateBoardAXImg = await apiImg
+    //   .post("posts", data)
+    //   .then(function (response) {
+    //     console.log(response, "에러안남!!!!!");
+    //   })
+    //   .catch(function (error) {
+    //     console.log("에러났음.", error);
+    //   });
 
 
 
@@ -52,8 +75,8 @@ const MakePost = () => {
         <option value="">--Please choose an option--</option>
         {value.map((v, i) => {
           return (
-            <option key={`option${i}`} value={v}>
-              {v}
+            <option key={`option${i}`} value={v[1]}>
+              {v[0]}
             </option>
           );
         })}
@@ -68,6 +91,8 @@ const MakePost = () => {
       <button onClick={MakePostAX} style={{ height: "50px" }}>
         제출하기
       </button>
+      <p />
+      
     </WrapMakePost>
   );
 };
