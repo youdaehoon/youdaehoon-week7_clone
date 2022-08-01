@@ -1,6 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 import axios from "axios";
+import { useLocation, useNavigate, useParams } from "react-router-dom";
 
 // {
 //   postId: “post 아이디”
@@ -49,26 +50,34 @@ const Detail = (props) => {
   });
 
 
-function Detail() {
-  React.useEffect( async() => {
-    const apiDetail = axios.create({
-    baseURL: "ec2-54-180-105-24.ap-northeast-2.compute.amazonaws.com",
-        headers: {
-          "Content-Type": `application/json`, 
-        },
-      });
+  let {postId}=useParams(); //이름을 맞춰주면 된다 
+  const navigation=useNavigate();
   
-      const CreateBoardAXImg = await apiDetail
-        .get("/api/posts/1")
-        .then(function (response) {
-          console.log(response, "에러안남!!!!!");
-          console.log('보내주신data는',response.data)
-          setdataTest(response.data)
-        })
-        .catch(function (error) {
-          console.log("에러났음.", error)
-        });
-  }, []);
+
+ 
+  console.log(postId)// console 한번 확인해보세요!
+  const ModdifyPost=()=>{
+    navigation(`/makepost/${postId}`)
+  }
+  // React.useEffect( async() => {
+    // const apiDetail = axios.create({
+    // baseURL: "ec2-54-180-105-24.ap-northeast-2.compute.amazonaws.com",
+    //     headers: {
+    //       "Content-Type": `application/json`, 
+    //     },
+    //   });
+  
+      // const CreateBoardAXImg = await apiDetail
+      //   .get("/api/posts/1")
+      //   .then(function (response) {
+      //     console.log(response, "에러안남!!!!!");
+      //     console.log('보내주신data는',response.data)
+      //     setdataTest(response.data)
+      //   })
+      //   .catch(function (error) {
+      //     console.log("에러났음.", error)
+      //   });
+  // }, []);
 
 
   // 삭제
@@ -126,9 +135,9 @@ function Detail() {
       <div>like:{dataTest.view} view:{dataTest.like}</div>
 
       <button onClick={ApiDetailDel}>X</button>
+      <button onClick={ModdifyPost}>수정하기</button>
     </div>
   );
-};
 };
 
 const TradeState = styled.div`
