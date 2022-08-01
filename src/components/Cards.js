@@ -34,11 +34,13 @@ const Cards = (props) => {
 const Card = styled.div`
   width: 196px;
   margin-bottom: 20px;
-  // background-color: blue;
+  maring: 0 10px;
+
+  // background-color: red;
   padding : 0px 20px 0px 20px;
   
   &:nth-child(5n) {
-    margin-right: 0;
+    margin-right: 10px;
   }
 `;
 

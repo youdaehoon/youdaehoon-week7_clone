@@ -72,17 +72,19 @@ const H2 = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
-
 `;
 
 const CardList = styled.div`
-  width: 50%;
+  max-width:100%;
+  // width: 50%;
   height: 100%;
   margin: 0 auto;
 
   display:flex;
   flex-direction: row;
+  flex-basis: 33.3%;
   flex-wrap : wrap;
+  // justify-content: space-evenly;
 
   // border: 5px solid red;
   // background-color: blue;

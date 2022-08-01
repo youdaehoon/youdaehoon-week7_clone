@@ -1,4 +1,5 @@
 import React from "react";
+import styled from "styled-components";
 import axios from "axios";
 
 // {
@@ -25,7 +26,7 @@ import axios from "axios";
 // }
 
 const Detail = (props) => {
-  const [dataTest,setdataTest]=React.useState({
+  const [dataTest, setdataTest]=React.useState({
     postid:"1",
     seller:{
       nickname:"닉네임",
@@ -38,7 +39,6 @@ const Detail = (props) => {
     price:"가격",
     content:"제목이 들어갑니다.",
     status: "판매 상태",
-    //
     
     createdAt:"시간.",
     like:"좋아요",
@@ -48,34 +48,37 @@ const Detail = (props) => {
     ],
   });
 
-  // React.useEffect( async() => {
-  //   const apiDetail = axios.create({
-  //   baseURL: "ec2-54-180-105-24.ap-northeast-2.compute.amazonaws.com",
-  //       headers: {
-  //         "Content-Type": `application/json`, 
-  //       },
-  //     });
+
+function Detail() {
+  React.useEffect( async() => {
+    const apiDetail = axios.create({
+    baseURL: "ec2-54-180-105-24.ap-northeast-2.compute.amazonaws.com",
+        headers: {
+          "Content-Type": `application/json`, 
+        },
+      });
   
-  //     const CreateBoardAXImg = await apiDetail
-  //       .get("/api/posts/1")
-  //       .then(function (response) {
-  //         console.log(response, "에러안남!!!!!");
-  //         console.log('보내주신data는',response.data)
-  //         setdataTest(response.data)
-  //       })
-  //       .catch(function (error) {
-  //         console.log("에러났음.", error)
-  //       });
-  // }, []);
+      const CreateBoardAXImg = await apiDetail
+        .get("/api/posts/1")
+        .then(function (response) {
+          console.log(response, "에러안남!!!!!");
+          console.log('보내주신data는',response.data)
+          setdataTest(response.data)
+        })
+        .catch(function (error) {
+          console.log("에러났음.", error)
+        });
+  }, []);
 
 
   // 삭제
-    const ApiDetailDel = axios.delete("/api/post/{postId}",
-      {headers: {
-        // authorization: `Bearer ${auth.authorization}`,
-        // refresh_token: `Bearer ${auth.refresh_token}`,
-        "Content-Type": "multipart/form-data"
-      }})
+    const ApiDetailDel = () => {
+      // axios.delete("/ec2-54-180-105-24.ap-northeast-2.compute.amazonaws.com/post/{postId}",
+      // {headers: {
+      //   Authorization: `Bearer ${auth.authorization}`,
+      //   refresh_token: `Bearer ${auth.refresh_token}`,
+      //   "Content-Type": "multipart/form-data"
+      // }})
       // .then(function (response) {
       //   // handle success
       //   console.log(response, "에러 놉!");
@@ -84,8 +87,10 @@ const Detail = (props) => {
       //   // handle error
       //   console.log(error, "에러 남!");
       // });
-
-
+      console.log("삭제됨!", ApiDetailDel)
+    }
+    
+  
   return (
     <div>
        image: <img src={dataTest.image[0]} style={{width:"50px"}}/>
@@ -102,12 +107,56 @@ const Detail = (props) => {
         <div>price:{dataTest.price}</div>
         <div>content:{dataTest.content}</div>
       </div>
+ 
+     <div>
+
+     <TradeState>
+              <span>
+                {dataTest.status === "1" ? (
+                  <Booking>예약중</Booking>
+                ) : dataTest.status === "2" ? (
+                  <SoldOut>거래완료</SoldOut>
+                ) : (
+                  ""
+                )}
+              </span>
+      </TradeState>
+     </div>
+
       <div>like:{dataTest.view} view:{dataTest.like}</div>
 
-      <button onClick={ApiDetailDel}>삭제</button>
+      <button onClick={ApiDetailDel}>X</button>
     </div>
   );
 };
+};
+
+const TradeState = styled.div`
+  margin-top: 5px;
+  margin-left:10px;
+  display: flex;
+  align-items: center;
+`;
+
+const SoldOut = styled.div`
+  padding: 6px 5px;
+  width: 65px;
+  height:26px;
+  border-radius: 5px;
+  background-color: #565656;
+  color: white;
+  font-size: 12px;
+  text-align: center;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+`;
+
+const Booking = styled(SoldOut)`
+  width: 55px;
+  height: 26px;
+  background-color: #34bf9e;
+`;
 
 export default Detail;
 
