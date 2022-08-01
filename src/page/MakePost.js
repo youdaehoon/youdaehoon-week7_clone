@@ -2,9 +2,8 @@ import React from "react";
 import styled from "styled-components";
 import Category from "../components/Category";
 import axios from "axios";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import Dropdownimg from "../components/Dropdownimg";
-
 
 const MakePost = () => {
   const navigate = useNavigate();
@@ -22,13 +21,14 @@ const MakePost = () => {
   const RefContent = React.useRef(null);
   const RefTitle = React.useRef(null);
   const RefCategory = React.useRef(null);
- 
-  const [ImageFile, setImageFile ] = React.useState([]);
-  const [ShowImg, setShowImg] = React.useState(null
-  );
+
+  const [ImageFile, setImageFile] = React.useState([]);
+  const [ShowImg, setShowImg] = React.useState(null);
   const UpdateformData = new FormData();
   const formData = new FormData();
 
+  const { postId } = useParams();
+  console.log("postid값은~~~",postId,typeof(postId));
 
   const MakePostAX = async () => {
     const data = {
@@ -38,19 +38,19 @@ const MakePost = () => {
       image: ImageFile,
       content: RefContent.current.value,
     };
-    formData.append('title',RefTitle.current.value);
-    formData.append('category',RefCategory.current.value);
-    formData.append('price',RefPrice.current.value);
-    formData.append('image',ImageFile);
-    formData.append('content',RefContent.current.value);
+    formData.append("title", RefTitle.current.value);
+    formData.append("category", RefCategory.current.value);
+    formData.append("price", RefPrice.current.value);
+    formData.append("image", ImageFile);
+    formData.append("content", RefContent.current.value);
 
-    console.log("보내는 데이터 file형식은",formData)
-    console.log("file 안에서 data의 형식 및 이름은",data)
+    console.log("보내는 데이터 file형식은", formData);
+    console.log("file 안에서 data의 형식 및 이름은", data);
 
     // const apiImg = axios.create({
     //   baseURL: "ec2-54-180-105-24.ap-northeast-2.compute.amazonaws.com",
     //   headers: {
-    //     authorization: `Bearer ${auth.authorization}`,
+    //     Authorization: `Bearer ${auth.authorization}`,
     //     refresh_token: `Bearer ${auth.refresh_token}`,
     //     "Content-Type": "multipart/form-data",
     //   },
@@ -65,8 +65,7 @@ const MakePost = () => {
     //     console.log("에러났음.", error);
     //   });
   };
-const UpdatePostAX= async ()=>{
-  
+  const UpdatePostAX = async () => {
     const data = {
       title: RefTitle.current.value,
       category: RefCategory.current.value,
@@ -74,21 +73,20 @@ const UpdatePostAX= async ()=>{
       content: RefContent.current.value,
       newFile: ImageFile,
       deleteFile: null,
-     
     };
-    UpdateformData.append('title',RefTitle.current.value);
-    UpdateformData.append('category',RefCategory.current.value);
-    UpdateformData.append('price',RefPrice.current.value);
-    UpdateformData.append('newFile',ImageFile);
-    UpdateformData.append('deleteFile',null);
-    UpdateformData.append('content',RefContent.current.value);
-    console.log("보내는 데이터 file형식은",UpdateformData)
-    console.log("file 안에서 data의 형식 및 이름은",data)
+    UpdateformData.append("title", RefTitle.current.value);
+    UpdateformData.append("category", RefCategory.current.value);
+    UpdateformData.append("price", RefPrice.current.value);
+    UpdateformData.append("newFile", ImageFile);
+    UpdateformData.append("deleteFile", null);
+    UpdateformData.append("content", RefContent.current.value);
+    console.log("보내는 데이터 file형식은", UpdateformData);
+    console.log("file 안에서 data의 형식 및 이름은", data);
 
     // const apiImg = axios.create({
     //   baseURL: "ec2-54-180-105-24.ap-northeast-2.compute.amazonaws.com",
     //   headers: {
-    //     authorization: `Bearer ${auth.authorization}`,
+    //     Authorization: `Bearer ${auth.authorization}`,
     //     refresh_token: `Bearer ${auth.refresh_token}`,
     //     "Content-Type": "multipart/form-data",
     //   },
@@ -102,24 +100,42 @@ const UpdatePostAX= async ()=>{
     //   .catch(function (error) {
     //     console.log("에러났음.", error);
     //   });
-    
-}
+  };
 
   return (
     <div>
       <WrapTitle>
         <PostTitle>중고거래 글쓰기</PostTitle>
-        <button style={{ width: "200px" } } onClick={MakePostAX}>작성하기</button>
-        <button style={{ width: "200px" } } onClick={UpdatePostAX}>수정하기</button>
+
+        {true&&<button>예시</button>}
+        {/* {postId=="0"?<button style={{ width: "200px" }} onClick={MakePostAX}>
+          작성하기
+        </button>:   <button style={{ width: "200px" }} onClick={UpdatePostAX}>
+          수정하기
+        </button>} */}
+        
+     
       </WrapTitle>
       <div
-      style={{width: "", height: "200px",display:"flex",flexDirection:"row"}}
+        style={{
+          width: "",
+          height: "150px",
+          display: "flex",
+          flexDirection: "row",
+        }}
       >
-        <Dropdownimg  setImageFile={setImageFile} ImageFile={ImageFile} ShowImg={ShowImg} setShowImg={setShowImg}/>
-        {ImageFile.lengh!==0&&<img
-          style={{ width: "250px", height: "200px", objectFit: "cover" }}
-          src={ShowImg}/>
-      }
+        <Dropdownimg
+          setImageFile={setImageFile}
+          ImageFile={ImageFile}
+          ShowImg={ShowImg}
+          setShowImg={setShowImg}
+        />
+        {ImageFile.lengh !== 0 && (
+          <img
+            style={{ width:'150px', height: "100%", objectFit: "cover",marginLeft:"20px"}}
+            src={ShowImg}
+          />
+        )}
       </div>
       <WrapTitleInput>
         <InputTitle ref={RefTitle} placeholder="제목" />

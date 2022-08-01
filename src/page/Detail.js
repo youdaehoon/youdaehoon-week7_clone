@@ -1,5 +1,6 @@
 import React from "react";
 import axios from "axios";
+import { useLocation, useNavigate, useParams } from "react-router-dom";
 
 // {
 //   postId: “post 아이디”
@@ -48,13 +49,22 @@ const Detail = (props) => {
     ],
   });
 
+  let {postId}=useParams(); //이름을 맞춰주면 된다 
+  const navigation=useNavigate();
+  
+
+ 
+  console.log(postId)// console 한번 확인해보세요!
+  const ModdifyPost=()=>{
+    navigation(`/makepost/${postId}`)
+  }
   // React.useEffect( async() => {
-  //   const apiDetail = axios.create({
-  //   baseURL: "ec2-54-180-105-24.ap-northeast-2.compute.amazonaws.com",
-  //       headers: {
-  //         "Content-Type": `application/json`, 
-  //       },
-  //     });
+    // const apiDetail = axios.create({
+    // baseURL: "ec2-54-180-105-24.ap-northeast-2.compute.amazonaws.com",
+    //     headers: {
+    //       "Content-Type": `application/json`, 
+    //     },
+    //   });
   
   //     const CreateBoardAXImg = await apiDetail
   //       .get("/api/posts/1")
@@ -70,12 +80,12 @@ const Detail = (props) => {
 
 
   // 삭제
-    const ApiDetailDel = axios.delete("/api/post/{postId}",
-      {headers: {
+    // const ApiDetailDel = axios.delete("/api/post/{postId}",
+      // {headers: {
         // authorization: `Bearer ${auth.authorization}`,
         // refresh_token: `Bearer ${auth.refresh_token}`,
-        "Content-Type": "multipart/form-data"
-      }})
+        // "Content-Type": "multipart/form-data"
+      // }})
       // .then(function (response) {
       //   // handle success
       //   console.log(response, "에러 놉!");
@@ -104,7 +114,8 @@ const Detail = (props) => {
       </div>
       <div>like:{dataTest.view} view:{dataTest.like}</div>
 
-      <button onClick={ApiDetailDel}>삭제</button>
+      <button >삭제</button>
+      <button onClick={ModdifyPost}>수정하기</button>
     </div>
   );
 };
