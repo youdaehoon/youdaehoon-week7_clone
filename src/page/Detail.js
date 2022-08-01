@@ -67,17 +67,17 @@ const Detail = (props) => {
     //     },
     //   });
   
-      const CreateBoardAXImg = await apiDetail
-        .get("/api/posts/1")
-        .then(function (response) {
-          console.log(response, "에러안남!!!!!");
-          console.log('보내주신data는',response.data)
-          setdataTest(response.data)
-        })
-        .catch(function (error) {
-          console.log("에러났음.", error)
-        });
-  }, []);
+  //     const CreateBoardAXImg = await apiDetail
+  //       .get("/api/posts/1")
+  //       .then(function (response) {
+  //         console.log(response, "에러안남!!!!!");
+  //         console.log('보내주신data는',response.data)
+  //         setdataTest(response.data)
+  //       })
+  //       .catch(function (error) {
+  //         console.log("에러났음.", error)
+  //       });
+  // }, []);
 
 
   // 삭제
@@ -140,7 +140,7 @@ const Detail = (props) => {
     </div>
   );
 };
-};
+
 
 const TradeState = styled.div`
   margin-top: 5px;
