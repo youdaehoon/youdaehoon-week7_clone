@@ -7,16 +7,36 @@ const Signup = () => {
 
   const refUsername = React.useRef(null);
   const refPassword = React.useRef(null);
-  const refPasswordCheck = React.useRef(null);
+  const refPasswordCheck = React.useRef(null);  
   const refNickname = React.useRef(null);
+  const refProfileImage = React.useRef(null);
   const refAddress = React.useRef(null);
 
-  const onLoadImg = (e) => {
+  const onChangeImg = async (e) => {
     e.preventDefault();
 
     if (e.target.files) {
-      const profileImage = e.target.files[0];
-      console.log(profileImage);
+      const uploadFile = e.target.files[0];
+      console.log(uploadFile);
+
+      const formData = new FormData();
+      formData.append('profileImage', uploadFile);
+
+      await axios({
+        baseURL: "http://54.180.105.24:8080",   
+        method: 'POST',
+        url: '/user/signup',
+        data: formData,
+        headers: {
+          'Content-Type': 'multipart/form-data',
+        },
+      })
+      .then(response => {
+        console.log("정상 작동", response.data);
+      })
+      .catch(error => {
+        console.log("에러 발생", error);
+      });
     }
   };
 
@@ -26,6 +46,7 @@ const Signup = () => {
       password: refPassword.current.value,
       passwordCheck: refPasswordCheck.current.value,
       nickname: refNickname.current.value,
+      profileImage: refProfileImage.current.value,
       address: refAddress.current.value
     };
     console.log("회원가입 정보", data22);
@@ -35,13 +56,13 @@ const Signup = () => {
     // formData.append("password", password);
     // formData.append("passwordCheck", passwordCheck);
     // formData.append("nickname", nickname);    
-    // formData.append("profileImage", profileImage);
+    // formData.append("profileImage", uploadFile);       // 한번에 어떻게 합치지??  빨간 줄 why?
     // formData.append("address", address);
 
     await axios({
-      // baseURL: "http://13.125.106.21:8080",   // URL 변경해야함!
-      url: '/user/signup',
+      baseURL: "http://54.180.105.24:8080",   
       method: 'POST',
+      url: '/user/signup',
       data: formData,
       headers: {
         'Content-Type': 'multipart/form-data',
@@ -56,12 +77,11 @@ const Signup = () => {
   };
 
   // 회원가입 누르면 로그인으로 navigate? 중복확인 기능. 비밀번호 영대소문자 8자리 이상. 주소는 option의 select 이용해서 입력하게끔.
-  // 주소 {} 객체로 보내기. circuit:~~도, si:~~시, gu:~~구, dong:~~동/읍/면. null로 보내면 나머지로 조합.
+  // 주소 {} 객체로 보내기. circuit:~도, si:~시, gu:~구, dong:~동/읍/면. null로 보내면 나머지로 조합.
 
   return (
     <>
       <div style={{ display: "flex" }}>
-        <div>로고</div>
         <button
           onClick={() => {
             navigate("/login");
@@ -106,7 +126,8 @@ const Signup = () => {
         </div>
         프로필 사진 업로드{" "}
         <input
-          onChange={onLoadImg}
+          ref={refProfileImage}
+          onChange={onChangeImg}
           type="file"
           accept="image/*"
           name="imageUpload"
@@ -118,6 +139,9 @@ const Signup = () => {
           placeholder="주소 입력"
           style={{ height: "20px", margin: "10px 30px" }}
         ></input>{" "}
+        <br />
+        <select name="sido1" id="sido1"></select>
+        <select name="gugun1" id="gugun1"></select>
         <br />
         <button onClick={sign}>회원가입</button>
       </div>
