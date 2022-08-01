@@ -75,7 +75,7 @@ const Header = () => {
         {/* 로그인 후 상태 */}
         <BtngruopAf>
           <Button onClick={() => {
-            navigate('/Makepost')
+            navigate('/Makepost/0')
           }} style={{ color: 'gray', margin: "0px 8px 0px 0px" }} variant="outlined" color="inherit">
             작성하기
           </Button>
