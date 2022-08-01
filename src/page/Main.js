@@ -1,6 +1,6 @@
 import React from "react";
 import styled from "styled-components";
-// import SearchIcon from '@material-ui/icons/Search';
+import SearchIcon from '@material-ui/icons/Search';
 
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
@@ -14,15 +14,32 @@ const Main = () => {
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  
 
-  // const Search = (onChange) => {
+    // React.useEffect(() => {
+    //     const apiMain = axios.create({
+    //         baseURL: "http://ec2-54-180-105-24.ap-northeast-2.compute.amazonaws.com",
+    //         headers: {
+    //           "Content-Type": "application/json",
+    //         },
+    //       });
+      
+    //       const CreateBoardAXImg = await apiMain
+    //         .get("/posts?keyword=""&location=""&size=8&lastId=8") // 로그인 후 "지역" 처리 - "posts?size=12&page=0"
+    //         .then(function (response) {
+    //           console.log(response, "에러 놉");
+    //         })
+    //         .catch(function (error) {
+    //           console.log("실패: 400 BAD_REQUEST", error);
+    //         });
+    // })
+
 
   return (
     <>
-      <div
-        style={{ backgroundColor: "#efefef", width: "100%", height: "450px" }}
+      <MainBanner
+        style={{ backgroundColor: "#efefef", width: "200%", height: "450px"}}
       />
-      <div>
         <H2>중고거래 인기매물</H2>
         <SearchContainer>
           <Search
@@ -43,10 +60,18 @@ const Main = () => {
           </CardsBox>
         ))}
         </CardList>
-      </div>
     </>
   );
 };
+
+
+const MainBanner = styled.div`
+    & img {
+      background-position: 50% 50%;
+      max-width: 200%;
+      max-height: 100%;
+    }
+`;
 
 const H2 = styled.div`
   font-size: 1.5rem;
@@ -54,16 +79,16 @@ const H2 = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
-
 `;
 
 const CardList = styled.div`
-  width: 50%;
+  max-width: 100%;
   height: 100%;
   margin: 0 auto;
 
   display:flex;
   flex-direction: row;
+  flex-basis: 33.3%;
   flex-wrap : wrap;
 
   // border: 5px solid red;
@@ -74,12 +99,13 @@ const CardsBox = styled.div`
   width: 25%;
   height: 100%;
   margin-bottom : 4%;
+  
   // border: 5px solid red;
   // background-color: blue;
 `;
 
 const SearchContainer = styled.div`
-  width: 400px;
+  width: 100%;
   height: 45px;
   position: relative;
   margin: 0 auto;

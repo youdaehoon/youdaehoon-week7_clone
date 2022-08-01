@@ -1,28 +1,47 @@
-import React,{useState,useEffect} from "react";
+import React, { useState, useEffect } from "react";
+import Stomp from "stompjs";
+import SockJS from "sockjs-client";
 
+const Chat = () => {
+  const env = process.env.NODE_ENV;
+  const devTarget = "http://54.180.105.24/"; // 서버와 연결하는 url
+  // 소켓
 
+  const sock = new SockJS(devTarget);
+  const ws = Stomp.over(sock);
+  // 현재 방정보
 
-const Chat=()=>{
+  const room_id = 1;
+  const post_id = 1;
+  const own_user_id = "daehoon";
+  // 채팅 참여 중인 사용자 정보
+  const user_in_chat = ["daehoon", "yeobin"];
+  // 보낼 메세지 정보
+  const sender_id = "daehoon";
+  const startchat = () => {
+    ws.connect({},onconnected,()=>{alert("연결안됨")})
+  };
+  const onconnected=()=>{
+    alert("연결됨")
+    ws.subscribe("") //url 받아야함
+  }
 
-  return(
+  return (
     <div>
-    chat
+      <button onClick={startchat}>채팅시작</button>
     </div>
-  )
-}
+  );
+};
 
-export default Chat
-
-
-
+export default Chat;
 
 // var stompClient =null;
 
 // const Chat = () => {
 //     const [privateChats, setPrivateChats] = useState(new Map());
 //       //map=> key valu값 가짐 ,삽입순서를 기억함, set,get,delete method를 가짐
-//       // privateChats   
-//     const [publicChats, setPublicChats] = useState([]); 
+//       // privateChats
+//     const [publicChats, setPublicChats] = useState([]);
 //     const [tab,setTab] =useState("CHATROOM");
 //     const [userData, setUserData] = useState({
 //         username: '',
@@ -46,7 +65,7 @@ export default Chat
 
 //     const onConnected = () => {
 //         setUserData({...userData,"connected": true}); //연결시켜서 채팅page가 보인다.
-//         stompClient.subscribe('/chatroom/public', onMessageReceived); 
+//         stompClient.subscribe('/chatroom/public', onMessageReceived);
 //         stompClient.subscribe('/user/'+userData.username+'/private', onPrivateMessage);
 //         userJoin();
 //     }
@@ -59,9 +78,9 @@ export default Chat
 //           stompClient.send("/app/message", {}, JSON.stringify(chatMessage));
 //     }
 //     const onMessageReceived = (payload)=>{
-      // 서버에서 payload를 jason형식으로 보내줌=>문자열의 형식 header,body등등을 이용해서
-      //   var payloadData = JSON.parse(payload.body);
-//         // json.parse: 문자열로 도착하는 data '{body: "메롱"}' 을 문자열을 제거하고 object로 사용하게 해줌 
+// 서버에서 payload를 jason형식으로 보내줌=>문자열의 형식 header,body등등을 이용해서
+//   var payloadData = JSON.parse(payload.body);
+//         // json.parse: 문자열로 도착하는 data '{body: "메롱"}' 을 문자열을 제거하고 object로 사용하게 해줌
 //         //body에 sendername이 있나봄..
 //         switch(payloadData.status){
 //             case "JOIN":
@@ -79,7 +98,7 @@ export default Chat
 //                 break;
 //         }
 //     }
-    
+
 //     const onPrivateMessage = (payload)=>{
 //         console.log(payload);
 //         var payloadData = JSON.parse(payload.body);
@@ -96,7 +115,7 @@ export default Chat
 
 //     const onError = (err) => {
 //         console.log(err);
-        
+
 //     }
 
 //     const handleMessage =(event)=>{
@@ -124,7 +143,7 @@ export default Chat
 //             message: userData.message,
 //             status:"MESSAGE"
 //           };
-          
+
 //           if(userData.username !== tab){
 //             privateChats.get(tab).push(chatMessage);
 //             setPrivateChats(new Map(privateChats));
@@ -168,7 +187,7 @@ export default Chat
 //                 </ul>
 
 //                 <div className="send-message">
-//                     <input type="text" className="input-message" placeholder="enter the message" value={userData.message} onChange={handleMessage} /> 
+//                     <input type="text" className="input-message" placeholder="enter the message" value={userData.message} onChange={handleMessage} />
 //                     <button type="button" className="send-button" onClick={sendValue}>send</button>
 //                 </div>
 //             </div>}
@@ -184,7 +203,7 @@ export default Chat
 //                 </ul>
 
 //                 <div className="send-message">
-//                     <input type="text" className="input-message" placeholder="enter the message" value={userData.message} onChange={handleMessage} /> 
+//                     <input type="text" className="input-message" placeholder="enter the message" value={userData.message} onChange={handleMessage} />
 //                     <button type="button" className="send-button" onClick={sendPrivateValue}>send</button>
 //                 </div>
 //             </div>}
@@ -201,7 +220,7 @@ export default Chat
 //               />
 //               <button type="button" onClick={registerUser}>
 //                     connect
-//               </button> 
+//               </button>
 //         </div>}
 //     </div>
 //     )
