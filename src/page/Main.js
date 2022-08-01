@@ -14,8 +14,26 @@ const Main = () => {
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  
 
-  // const Search = (onChange) => {
+    // React.useEffect(() => {
+    //     const apiMain = axios.create({
+    //         baseURL: "http://ec2-54-180-105-24.ap-northeast-2.compute.amazonaws.com",
+    //         headers: {
+    //           "Content-Type": "application/json",
+    //         },
+    //       });
+      
+    //       const CreateBoardAXImg = await apiMain
+    //         .get("/posts?keyword=""&location=""&size=8&lastId=8") // 로그인 후 "지역" 처리 - "posts?size=12&page=0"
+    //         .then(function (response) {
+    //           console.log(response, "에러 놉");
+    //         })
+    //         .catch(function (error) {
+    //           console.log("실패: 400 BAD_REQUEST", error);
+    //         });
+    // })
+
 
   return (
     <>

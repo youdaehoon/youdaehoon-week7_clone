@@ -1,4 +1,6 @@
 import React from "react";
+import axios from "axios";
+
 // {
 //   postId: “post 아이디”
 //   seller: {
@@ -21,6 +23,7 @@ import React from "react";
 //       ….
 //   ]
 // }
+
 const Detail = (props) => {
   const [dataTest,setdataTest]=React.useState({
     seller:{
@@ -34,21 +37,19 @@ const Detail = (props) => {
     price:"가격",
     content:"제목이 들어갑니다.",
     status: "판매 상태",
+    //
+    
     createdAt:"시간.",
     like:"좋아요",
     view:"조회",
     image:[
       "https://t1.daumcdn.net/cfile/blog/9912333A5B46EEA921",
     ],
-    
-
-    
   });
- 
 
   // React.useEffect( async() => {
   //   const apiDetail = axios.create({
-  //       baseURL: "http://13.125.106.21:8080",
+  //       baseURL: "http://ec2-54-180-105-24.ap-northeast-2.compute.amazonaws.com",
   //       headers: {
   //         "Content-Type": `application/json`, 
   //       },
@@ -62,9 +63,28 @@ const Detail = (props) => {
   //         setdataTest(response.data)
   //       })
   //       .catch(function (error) {
-  //         console.log("에러났음.", error);
-  //   //     });
+  //         console.log("에러났음.", error)
+  //       });
   // }, []);
+
+
+  // 삭제
+    const ApiDetailDel = axios.delete("/api/post/{postId}",
+      {headers: {
+        // authorization: `Bearer ${auth.authorization}`,
+        // refresh_token: `Bearer ${auth.refresh_token}`,
+        "Content-Type": "multipart/form-data"
+      }})
+      // .then(function (response) {
+      //   // handle success
+      //   console.log(response, "에러 놉!");
+      // })
+      // .catch(function (error) {
+      //   // handle error
+      //   console.log(error, "에러 남!");
+      // });
+
+
   return (
     <div>
        image: <img src={dataTest.image[0]} style={{width:"50px"}}/>
@@ -82,6 +102,8 @@ const Detail = (props) => {
         <div>content:{dataTest.content}</div>
       </div>
       <div>like:{dataTest.view} view:{dataTest.like}</div>
+
+      <button onClick={ApiDetailDel}>삭제</button>
     </div>
   );
 };
