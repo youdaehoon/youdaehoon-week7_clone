@@ -10,7 +10,7 @@ import Cards from "../components/Cards";
 const Main = () => {
   const data = useSelector((state) => state.post.post);
 
-  console.log("나야나", data);
+  // console.log("나야나", data);
 
   const dispatch = useDispatch();
   const navigate = useNavigate();

@@ -9,7 +9,7 @@ const Cards = (props) => {
     const navigate = useNavigate();
     
     const { image, title, price } = props.post;
-    console.log("나는 어디에", props.post)
+    // console.log("나는 어디에", props.post)
 
   return (
     <>
