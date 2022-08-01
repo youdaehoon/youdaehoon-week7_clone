@@ -66,7 +66,7 @@ const initialState = {
   title: "개발자 머그컵 팝니다",
   address: "대구 달서구 도원동",
   price:  5000,
-  image: "https://shop1.daumcdn.net/thumb/R500x500/?fname=http%3A%2F%2Fshop1.daumcdn.net%2Fshophow%2Fp%2FH13076265500.jpg%3Fut%3D20210428125839",
+  image: "",
   category: "ETC",
   status: "판매 상태",
   createdAt: "시간",

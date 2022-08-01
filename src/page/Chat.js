@@ -58,10 +58,9 @@ export default Chat
 //           };
 //           stompClient.send("/app/message", {}, JSON.stringify(chatMessage));
 //     }
-
 //     const onMessageReceived = (payload)=>{
-//       // 서버에서 payload를 jason형식으로 보내줌=>문자열의 형식 header,body등등을 이용해서
-//         var payloadData = JSON.parse(payload.body);
+      // 서버에서 payload를 jason형식으로 보내줌=>문자열의 형식 header,body등등을 이용해서
+      //   var payloadData = JSON.parse(payload.body);
 //         // json.parse: 문자열로 도착하는 data '{body: "메롱"}' 을 문자열을 제거하고 object로 사용하게 해줌 
 //         //body에 sendername이 있나봄..
 //         switch(payloadData.status){
