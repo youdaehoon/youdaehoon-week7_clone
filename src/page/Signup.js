@@ -7,6 +7,7 @@ const Signup = () => {
 
   const refUsername = React.useRef(null);
   const refPassword = React.useRef(null);
+
   const refPasswordCheck = React.useRef(null);  
   const refNickname = React.useRef(null);
   const refProfileImage = React.useRef(null);
@@ -56,8 +57,10 @@ const Signup = () => {
     // formData.append("password", password);
     // formData.append("passwordCheck", passwordCheck);
     // formData.append("nickname", nickname);    
+
     // formData.append("profileImage", uploadFile);       // 한번에 어떻게 합치지??  빨간 줄 why?
     // formData.append("address", address);
+
 
     // await axios({
     //   baseURL: "http://54.180.105.24:8080",   
@@ -78,6 +81,7 @@ const Signup = () => {
 
   // 회원가입 누르면 로그인으로 navigate? 중복확인 기능. 비밀번호 영대소문자 8자리 이상. 주소는 option의 select 이용해서 입력하게끔.
   // 주소 {} 객체로 보내기. circuit:~도, si:~시, gu:~구, dong:~동/읍/면. null로 보내면 나머지로 조합.
+
 
   return (
     <>

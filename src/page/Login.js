@@ -16,6 +16,7 @@ const Login = () => {
 
     console.log("로그인 정보", data11);
 
+
     // const apiLogin = axios.create({              // 전역으로 axios 객체 만들기. instance = apiImgS
     //   baseURL: "http://54.180.105.24:8080",   // URL 변경해야함!
     //   headers: {

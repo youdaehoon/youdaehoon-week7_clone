@@ -3,8 +3,10 @@ import styled from 'styled-components';
 // import axios from "axios";yar
 import { Button } from '@material-ui/core';
 import { useNavigate } from 'react-router-dom'
+// import { useDispatch } from "react-redux";
 
-// // import cookie from 'react-cookie'
+
+// import cookie from 'react-cookie'
 // import { getCookie, setCookie } from "../shared/Cookie";
 // import { actionCreators } from "../redux/modules/user";
 
@@ -12,11 +14,11 @@ const Header = () => {
   // const [is_login, setIsLogin] = React.useState(false);
   // console.log(is_login)
 
-  // const dispatch = React.useDispatch();
+  // const dispatch = useDispatch();
   const navigate = useNavigate();
 
   // React.useEffect(() => {
-  //   axios.get("http://13.209.167.96/main")
+  //   axios.get("http://13.125.106.21:8080/main")
   //     .then(response => {
   //       const { accessToken } = response.data;
   //       console.log(response.data)
@@ -28,12 +30,12 @@ const Header = () => {
   //     });
   // })
 
-  // const onClickLogOut = () => {
-  //   // localStorage.removeUser("is_login");
-  //   // sessionStorage.removeUser("is_login");
-  //   window.alert("로그아웃!")
-  //   navigate("/");
-  // }
+  const onClickLogOut = () => {
+    // localStorage.removeUser("is_login");
+    // sessionStorage.removeUser("is_login");
+    window.alert("로그아웃!")
+    navigate("/");
+  }
 
   // React.useEffect(() => {
 
@@ -42,63 +44,74 @@ const Header = () => {
   //   // 확인
   //   console.log(cookie);
   //   // 쿠키가 있으면?
-  //   if(cookie){
-  //       setIsLogin(true);
-  //   }else{
-  //       setIsLogin(false);
+  //   if (cookie) {
+  //     setIsLogin(true);
+  //   } else {
+  //     setIsLogin(false);
   //   }
   // });
 
-  // if(is_login){
-    return (
-      <div className="App">
+  // if (is_login) {
+  return (
+    <div className="App">
       <Nav>
         <Logo onClick={() => {
           navigate("/")
         }} style={{ color: 'firebrick', fontSize: '24px', cursor: "pointer" }}>토마토마켓</Logo>
 
         <Text>토마</Text>
+        {/* 로그인 전 상태 */}
+        <BtngruopBf>
+          <Button onClick={() => {
+            navigate('/login')
+          }} style={{ color: 'gray', margin: "0px 8px 0px 0px" }} variant="outlined" color="inherit">
+            Login</Button>
+          <Button onClick={() => {
+            navigate('/signup')
+          }} style={{ color: 'gray' }} variant="outlined" color="inherit">
+            회원가입</Button>
+        </BtngruopBf>
+
 
         {/* 로그인 후 상태 */}
-        <Btngruop>
+        <BtngruopAf>
           <Button onClick={() => {
             navigate('/Makepost')
           }} style={{ color: 'gray', margin: "0px 8px 0px 0px" }} variant="outlined" color="inherit">
             작성하기
           </Button>
-          <Button onChange={() => {
-            navigate("/")
-          }}
-          style={{ color: 'gray' }} variant="outlined" color="inherit">
+          <Button onClick={onClickLogOut}
+            style={{ color: 'gray' }} variant="outlined" color="inherit">
             로그아웃</Button>
-        </Btngruop>
-        </Nav>
-        </div>
-    );
+        </BtngruopAf>
+      </Nav>
+    </div>
+  );
+};
 
-  // return (
-  //   <div className="App">
-  //     <Nav>
-  //     <Logo onClick={() => {
-  //         navigate("/")
-  //       }} style={{ color: 'white', fontSize: '24px', cursor: "pointer" }}>FleaMarket</Logo>
+//   return (
+//     <div className="App">
+//       <Nav>
+//         <Logo onClick={() => {
+//           navigate("/")
+//         }} style={{ color: 'firebrick', fontSize: '24px', cursor: "pointer" }}>FleaMarket</Logo>
 
-  //         {/* 로그인 전 상태 */}
-  //         <Btngruop>
-  //         <Button onClick={() => {
-  //                 navigate('/login')
-  //                 }} style={{color: 'white', margin: "0px 8px 0px 0px"}} variant="outlined" color="inherit">
-  //                 Login</Button>
-  //               <Button onClick={() => {
-  //                 navigate('/signup')
-  //               }} style={{color: 'white'}} variant="outlined" color="inherit">
-  //                 회원가입</Button>
-  //       </Btngruop>
-  //     </Nav>
-  //   </div>
-  // );
+//         {/* 로그인 전 상태 */}
+//         <Btngruop>
+//           <Button onClick={() => {
+//             navigate('/login')
+//           }} style={{ color: 'gray', margin: "0px 8px 0px 0px" }} variant="outlined" color="inherit">
+//             Login</Button>
+//           <Button onClick={() => {
+//             navigate('/signup')
+//           }} style={{ color: 'gray' }} variant="outlined" color="inherit">
+//             회원가입</Button>
+//         </Btngruop>
+//       </Nav>
+//     </div>
+//   );
+// };
 
-}
 
 const Nav = styled.div`
         background: white;
@@ -140,10 +153,22 @@ const Text = styled.div`
         }
 `;
 
-const Btngruop = styled.div`
+const BtngruopBf = styled.div`
         display: inline-block;
         position: absolute;
         margin-right : 10px;
+        top: 20px;
+        right: 16px;
+        width: 200px;
+        color: gray;
+        // background-color: green;
+`;
+
+const BtngruopAf = styled.div`
+        display: inline-block;
+        position: absolute;
+        margin-right: 10px;
+        margin-top: 40px;
         top: 20px;
         right: 16px;
         width: 200px;
