@@ -12,8 +12,6 @@ const Signup = () => {
   // const refProfileImage = React.useRef(null);
   const refAddress = React.useRef(null);
 
-  const [ImageFile, setImageFile ] = React.useState();
-
   const [userImg, setUserImg] = React.useState();
 
   const PreviewFrofileImg = (e) => {
@@ -202,7 +200,7 @@ const Signup = () => {
           // onChange={(e) => {
           //   handleSignUpValue('profileImage');
           // }}
-          setImageFile={setImageFile} ImageFile={ImageFile}
+
           onChange={PreviewFrofileImg}
           
           type="file"
