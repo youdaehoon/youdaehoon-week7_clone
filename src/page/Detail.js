@@ -26,6 +26,7 @@ import axios from "axios";
 
 const Detail = (props) => {
   const [dataTest,setdataTest]=React.useState({
+    postid:"1",
     seller:{
       nickname:"닉네임",
       profile:"https://previews.123rf.com/images/jemastock/jemastock1708/jemastock170816693/84685879-%EB%82%A8%EC%9E%90-%EC%96%BC%EA%B5%B4-%EC%BA%90%EB%A6%AD%ED%84%B0-%EC%BA%90%EB%A6%AD%ED%84%B0-%ED%94%84%EB%A1%9C%ED%95%84-%EB%A7%8C%ED%99%94-%EC%9D%B4%EB%AF%B8%EC%A7%80-%EB%B2%A1%ED%84%B0-%EC%9D%BC%EB%9F%AC%EC%8A%A4%ED%8A%B8-%EB%A0%88%EC%9D%B4%EC%85%98.jpg",
@@ -49,7 +50,7 @@ const Detail = (props) => {
 
   // React.useEffect( async() => {
   //   const apiDetail = axios.create({
-  //       baseURL: "http://ec2-54-180-105-24.ap-northeast-2.compute.amazonaws.com",
+  //   baseURL: "ec2-54-180-105-24.ap-northeast-2.compute.amazonaws.com",
   //       headers: {
   //         "Content-Type": `application/json`, 
   //       },

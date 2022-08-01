@@ -26,6 +26,8 @@ const MakePost = () => {
   const [ImageFile, setImageFile ] = React.useState([]);
   const [ShowImg, setShowImg] = React.useState(null
   );
+  const UpdateformData = new FormData();
+  const formData = new FormData();
 
 
   const MakePostAX = async () => {
@@ -36,11 +38,17 @@ const MakePost = () => {
       image: ImageFile,
       content: RefContent.current.value,
     };
+    formData.append('title',RefTitle.current.value);
+    formData.append('category',RefCategory.current.value);
+    formData.append('price',RefPrice.current.value);
+    formData.append('image',ImageFile);
+    formData.append('content',RefContent.current.value);
 
-    console.log("전송하는 data모양은", data);
+    console.log("보내는 데이터 file형식은",formData)
+    console.log("file 안에서 data의 형식 및 이름은",data)
 
     // const apiImg = axios.create({
-    //   baseURL: "http://13.125.106.21:8080",
+    //   baseURL: "ec2-54-180-105-24.ap-northeast-2.compute.amazonaws.com",
     //   headers: {
     //     authorization: `Bearer ${auth.authorization}`,
     //     refresh_token: `Bearer ${auth.refresh_token}`,
@@ -49,7 +57,7 @@ const MakePost = () => {
     // });
 
     // const CreateBoardAXImg = await apiImg
-    //   .post("posts", data)
+    //   .post("posts", formData)
     //   .then(function (response) {
     //     console.log(response, "에러안남!!!!!");
     //   })
@@ -57,11 +65,52 @@ const MakePost = () => {
     //     console.log("에러났음.", error);
     //   });
   };
+const UpdatePostAX= async ()=>{
+  
+    const data = {
+      title: RefTitle.current.value,
+      category: RefCategory.current.value,
+      price: RefPrice.current.value,
+      content: RefContent.current.value,
+      newFile: ImageFile,
+      deleteFile: null,
+     
+    };
+    UpdateformData.append('title',RefTitle.current.value);
+    UpdateformData.append('category',RefCategory.current.value);
+    UpdateformData.append('price',RefPrice.current.value);
+    UpdateformData.append('newFile',ImageFile);
+    UpdateformData.append('deleteFile',null);
+    UpdateformData.append('content',RefContent.current.value);
+    console.log("보내는 데이터 file형식은",UpdateformData)
+    console.log("file 안에서 data의 형식 및 이름은",data)
+
+    // const apiImg = axios.create({
+    //   baseURL: "ec2-54-180-105-24.ap-northeast-2.compute.amazonaws.com",
+    //   headers: {
+    //     authorization: `Bearer ${auth.authorization}`,
+    //     refresh_token: `Bearer ${auth.refresh_token}`,
+    //     "Content-Type": "multipart/form-data",
+    //   },
+    // });
+
+    // const CreateBoardAXImg = await apiImg
+    //   .put("/api/post/1", UpdateformData)
+    //   .then(function (response) {
+    //     console.log(response, "에러안남!!!!!");
+    //   })
+    //   .catch(function (error) {
+    //     console.log("에러났음.", error);
+    //   });
+    
+}
+
   return (
     <div>
       <WrapTitle>
         <PostTitle>중고거래 글쓰기</PostTitle>
-        <button style={{ width: "200px" } } onClick={MakePostAX}>완료</button>
+        <button style={{ width: "200px" } } onClick={MakePostAX}>작성하기</button>
+        <button style={{ width: "200px" } } onClick={UpdatePostAX}>수정하기</button>
       </WrapTitle>
       <div
       style={{width: "", height: "200px",display:"flex",flexDirection:"row"}}
@@ -120,6 +169,7 @@ const WrapTitle = styled.div`
   padding-bottom: 20px;
   border-bottom: 3px solid black;
   width: 100%;
+  margin: 50px;
 `;
 const PostTitle = styled.div`
   font-size: 20px;
