@@ -33,13 +33,11 @@ const Login = () => {
     //   .catch(function (error) {
     //     console.log("에러났음.", error);
     //   });
-  };
 
   // 로그인 누르면 메인페이지로 이동
 
   return (
     <>
-      <div>로고</div>
       <div>배너</div>
       <div>
         <div style={{ display: "flex" }}>
@@ -73,6 +71,7 @@ const Login = () => {
       </div>
     </>
   );
+};
 };
 
 export default Login;

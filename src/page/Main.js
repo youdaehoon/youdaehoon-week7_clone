@@ -3,13 +3,14 @@ import styled from "styled-components";
 import SearchIcon from '@material-ui/icons/Search';
 
 import { useDispatch, useSelector } from "react-redux";
-import { useNavigate } from 'react-router-dom'
+import { useNavigate } from "react-router-dom";
 
-import Cards from '../components/Cards';
+import Cards from "../components/Cards";
 
 const Main = () => {
   const data = useSelector((state) => state.post.post);
-  console.log(data);
+
+  console.log("나야나", data);
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -17,7 +18,6 @@ const Main = () => {
   // const Search = (onChange) => {
 
   return (
-
     <>
       <div
         style={{ backgroundColor: "#efefef", width: "100%", height: "450px" }}
@@ -45,7 +45,7 @@ const Main = () => {
         </CardList>
       </div>
     </>
-  )
+  );
 };
 
 const H2 = styled.div`
@@ -100,6 +100,5 @@ const Search = styled.input`
   height: 100%;
   outline: none;
 `;
-
 
 export default Main;
