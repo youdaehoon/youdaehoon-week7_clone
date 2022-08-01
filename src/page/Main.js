@@ -1,6 +1,6 @@
 import React from "react";
 import styled from "styled-components";
-// import SearchIcon from '@material-ui/icons/Search';
+import SearchIcon from '@material-ui/icons/Search';
 
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
@@ -37,10 +37,9 @@ const Main = () => {
 
   return (
     <>
-      <div
-        style={{ backgroundColor: "#efefef", width: "100%", height: "450px" }}
+      <MainBanner
+        style={{ backgroundColor: "#efefef", width: "200%", height: "450px"}}
       />
-      <div>
         <H2>중고거래 인기매물</H2>
         <SearchContainer>
           <Search
@@ -61,10 +60,18 @@ const Main = () => {
           </CardsBox>
         ))}
         </CardList>
-      </div>
     </>
   );
 };
+
+
+const MainBanner = styled.div`
+    & img {
+      background-position: 50% 50%;
+      max-width: 200%;
+      max-height: 100%;
+    }
+`;
 
 const H2 = styled.div`
   font-size: 1.5rem;
@@ -75,8 +82,7 @@ const H2 = styled.div`
 `;
 
 const CardList = styled.div`
-  max-width:100%;
-  // width: 50%;
+  max-width: 100%;
   height: 100%;
   margin: 0 auto;
 
@@ -84,7 +90,6 @@ const CardList = styled.div`
   flex-direction: row;
   flex-basis: 33.3%;
   flex-wrap : wrap;
-  // justify-content: space-evenly;
 
   // border: 5px solid red;
   // background-color: blue;
@@ -94,12 +99,13 @@ const CardsBox = styled.div`
   width: 25%;
   height: 100%;
   margin-bottom : 4%;
+  
   // border: 5px solid red;
   // background-color: blue;
 `;
 
 const SearchContainer = styled.div`
-  width: 400px;
+  width: 100%;
   height: 45px;
   position: relative;
   margin: 0 auto;
