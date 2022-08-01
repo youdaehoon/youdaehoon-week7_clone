@@ -66,6 +66,7 @@ const Main = () => {
 
 
 const MainBanner = styled.div`
+  margin-left: -50%;
     & img {
       background-position: 50% 50%;
       max-width: 200%;
