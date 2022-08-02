@@ -41,38 +41,49 @@ const MakePost = () => {
     const data = {
       title: RefTitle.current.value,
       category: RefCategory.current.value,
-      price: RefPrice.current.value,
+      price: Number(RefPrice.current.value),
       image: ImageFile,
       content: RefContent.current.value,
     };
+    console.log( RefPrice.current.value,typeof(Number(RefPrice.current.value) ))
     formData.append("title", RefTitle.current.value);
     formData.append("category", RefCategory.current.value);
-    formData.append("price", RefPrice.current.value);
-    formData.append("image", ImageFile);
+    formData.append("price", Number(RefPrice.current.value));
+    for(let i=0;i<1;i++){
+      formData.append("image", ImageFile[i]);
+    }
+   
     formData.append("content", RefContent.current.value);
-
     console.log("보내는 데이터 file형식은", formData);
     console.log("file 안에서 data의 형식 및 이름은", data);
-
-
+    const auth={
+      authorization:sessionStorage.getItem("access_token"),
+      refresh_token:sessionStorage.getItem("refresh_token")
+     }
+    //  console.log(auth);
+    //  console.log(`Bearer ${auth.authorization}`)
+    //  console.log(`Bearer ${auth.refresh_token}`)
+    
+    
     const apiImg = axios.create({
-      baseURL: "ec2-54-180-105-24.ap-northeast-2.compute.amazonaws.com",
+      baseURL: "http://ec2-54-180-105-24.ap-northeast-2.compute.amazonaws.com/",   
       headers: {
         Authorization: `Bearer ${auth.authorization}`,
         refresh_token: `Bearer ${auth.refresh_token}`,
         "Content-Type": "multipart/form-data",
-      },
+      }
     });
 
     const CreateBoardAXImg = await apiImg
-      .post("posts", formData)
+      .post("api/post", formData)
       .then(function (response) {
         console.log(response, "에러안남!!!!!");
       })
       .catch(function (error) {
         console.log("에러났음.", error);
       });
-  };
+
+
   const UpdatePostAX = async () => {
     const data = {
       title: RefTitle.current.value,
@@ -84,21 +95,28 @@ const MakePost = () => {
     };
     UpdateformData.append("title", RefTitle.current.value);
     UpdateformData.append("category", RefCategory.current.value);
-    UpdateformData.append("price", RefPrice.current.value);
-    UpdateformData.append("newFile", ImageFile);
+    UpdateformData.append("price", Number(RefPrice.current.value));
+    for(let i=0;i<1;i++){
+      formData.append("image", ImageFile[i]);
+    }
     UpdateformData.append("deleteFile", null);
     UpdateformData.append("content", RefContent.current.value);
     console.log("보내는 데이터 file형식은", UpdateformData);
     console.log("file 안에서 data의 형식 및 이름은", data);
 
-    const apiImg = axios.create({
-      baseURL: "ec2-54-180-105-24.ap-northeast-2.compute.amazonaws.com",
-      headers: {
-        Authorization: `Bearer ${auth.authorization}`,
-        refresh_token: `Bearer ${auth.refresh_token}`,
-        "Content-Type": "multipart/form-data",
-      },
-    });
+     const auth = {
+      authorization:sessionStorage.getItem("access_token"),
+      refresh_token:sessionStorage.getItem("refresh_token")
+     }
+     console.log(auth);
+    // const apiImg = axios.create({
+      // baseURL: "http://ec2-54-180-105-24.ap-northeast-2.compute.amazonaws.com/",   
+    //   headers: {
+    //     Authorization: `Bearer ${auth.authorization}`,
+    //     refresh_token: `Bearer ${auth.refresh_token}`,
+    //     "Content-Type": "multipart/form-data",
+    //   },
+    // });
 
     const CreateBoardAXImg = await apiImg
       .put("/api/post/1", UpdateformData)
@@ -119,15 +137,15 @@ const MakePost = () => {
         {/* {true&&<button>예시</button>} */}
         <Button style={{color: 'gray', margin: "0px 100px 0px 0px"}} variant="outlined" color="inherit">
           예시</Button>
-        {/* {postId=="0"?<button
-        style={{ color: 'white'}} variant="outlined" color="inherit"
-        onClick={MakePostAX}>
+
+        {/* {postId=="0"?<button style={{ width: "200px" }} onClick={MakePostAX}>
           작성하기
         </button> : <button 
         style={{ color: 'white'}} variant="outlined" color="inherit"
         onClick={UpdatePostAX}>
           수정하기
         </button>} */}
+        
      
       </WrapTitle>
       <div
@@ -184,6 +202,7 @@ const MakePost = () => {
       {/* <WrapMakePost></WrapMakePost> */}
     </Wrap>
   );
+};
 };
 
 export default MakePost;
