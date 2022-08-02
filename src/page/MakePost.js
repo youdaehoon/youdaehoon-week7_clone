@@ -134,17 +134,17 @@ const MakePost = () => {
       <WrapTitle>
         <PostTitle>중고거래 글쓰기</PostTitle>
 
-        {true&&<button>예시</button>}
+        {/* {true&&<button>예시</button>} */}
         <Button style={{color: 'gray', margin: "0px 100px 0px 0px"}} variant="outlined" color="inherit">
           예시</Button>
-
+{/* 
         {postId=="0"?<button style={{ width: "200px" }} onClick={MakePostAX}>
           작성하기
         </button> : <button 
         style={{ color: 'white'}} variant="outlined" color="inherit"
         onClick={UpdatePostAX}>
           수정하기
-        </button>}
+        </button>} */}
         
      
       </WrapTitle>
