@@ -15,7 +15,7 @@ function App() {
   return (
     <div>
       <Header />
-      <H2>
+      {/* <H2> */}
       <Routes>
         <Route path="/" element={<Main />} />
         <Route path="/signup" element={<Signup />} />
@@ -24,13 +24,14 @@ function App() {
         <Route path="/makepost/:postId" element={<MakePost />} />
         <Route path="/chat" element={<Chat />} />
       </Routes>
-      </H2>
+      {/* </H2> */}
     </div>
   );
 }
 
 const H2 = styled.div`
   max-width: 50%;
+  position: relative;
   height: 100%;
   margin: 0 auto;
 

@@ -9,7 +9,7 @@ import { useLocation, useNavigate, useParams } from "react-router-dom";
 //       nickname: “닉네임”,
 //       profile: “프로필 사진 주소”,
 //       address: “주소”
-//   }
+//   } 
 //   title: "제목입니다",
 //   category: “카테고리”,
 //   price: 가격,
@@ -50,22 +50,26 @@ const Detail = (props) => {
   });
 
 
-  let {postId}=useParams(); //이름을 맞춰주면 된다 
+  let {postId} = useParams(); // 이름을 맞춰주면 된다 
   const navigation=useNavigate();
   
-
- 
-  console.log(postId)// console 한번 확인해보세요!
+  console.log(postId) // console 한번 확인해보세요!
   const ModdifyPost=()=>{
     navigation(`/makepost/${postId}`)
   }
+
+  const auth = {
+    Authorization:sessionStorage.getItem("accessToken"),
+    refreshToken:sessionStorage.getItem("refreshToken")
+    }
+  
   // React.useEffect( async() => {
-    // const apiDetail = axios.create({
-    // baseURL: "ec2-54-180-105-24.ap-northeast-2.compute.amazonaws.com",
-    //     headers: {
-    //       "Content-Type": `application/json`, 
-    //     },
-    //   });
+  //   const apiDetail = axios.create({
+  //   baseURL: "ec2-54-180-105-24.ap-northeast-2.compute.amazonaws.com",
+  //       headers: {
+  //         "Content-Type": `application/json`, 
+  //       },
+  //     });
   
   //     const CreateBoardAXImg = await apiDetail
   //       .get("/api/posts/1")
@@ -79,23 +83,24 @@ const Detail = (props) => {
   //       });
   // }, []);
 
+  
 
   // 삭제
     const ApiDetailDel = () => {
-      // axios.delete("/ec2-54-180-105-24.ap-northeast-2.compute.amazonaws.com/post/{postId}",
-      // {headers: {
-      //   Authorization: `Bearer ${auth.authorization}`,
-      //   refresh_token: `Bearer ${auth.refresh_token}`,
-      //   "Content-Type": "multipart/form-data"
-      // }})
-      // .then(function (response) {
-      //   // handle success
-      //   console.log(response, "에러 놉!");
-      // })
-      // .catch(function (error) {
-      //   // handle error
-      //   console.log(error, "에러 남!");
-      // });
+      axios.delete("/ec2-54-180-105-24.ap-northeast-2.compute.amazonaws.com/post/{postId}",
+      {headers: {
+        Authorization: `Bearer ${auth.authorization}`,
+        refresh_token: `Bearer ${auth.refresh_token}`,
+        "Content-Type": "multipart/form-data"
+      }})
+      .then(function (response) {
+        // handle success
+        console.log(response, "에러 놉!");
+      })
+      .catch(function (error) {
+        // handle error
+        console.log(error, "에러 남!");
+      });
       console.log("삭제됨!", ApiDetailDel)
     }
     
@@ -134,13 +139,11 @@ const Detail = (props) => {
 
       <div>like:{dataTest.view} view:{dataTest.like}</div>
 
-
       <button onClick={ApiDetailDel}>X</button>
       <button onClick={ModdifyPost}>수정하기</button>
     </div>
   );
 };
-
 
 const TradeState = styled.div`
   margin-top: 5px;
