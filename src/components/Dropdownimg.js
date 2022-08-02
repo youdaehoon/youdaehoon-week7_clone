@@ -31,13 +31,15 @@ const Dropdownimg = ({ setImageFile, ImageFile, setShowImg }) => {
 export default Dropdownimg;
 
 const DropdownZoneStyle = styled.div`
-  border: 1px solid black;
+  border: 1px solid darkred;
   width: 100px;
   height: 100px;
+  margin-left: 75px;
 `;
 
 const WrapIcon=styled.div`
   display: flex;
+  color: darkred;
   flex-direction: column;
   justify-content: center;
   align-items: center;
@@ -45,8 +47,7 @@ const WrapIcon=styled.div`
   height: 100%;
 `
 const CountImage=styled.div`
-background-color: yellow;
-
+background-color: darkred;
+color: white;
 font-size: 15px;
-
 `

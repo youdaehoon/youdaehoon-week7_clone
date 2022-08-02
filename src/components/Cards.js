@@ -35,9 +35,9 @@ const Card = styled.div`
   width: 196px;
   margin-bottom: 20px;
   maring: 0 10px;
-
+  
   // background-color: red;
-  padding : 0px 20px 0px 20px;
+  // padding : 0px 20px 0px 20px;
   
   &:nth-child(5n) {
     margin-right: 10px;

@@ -37,9 +37,21 @@ const Main = () => {
 
   return (
     <>
+    <div style={{ width: "100vw", height: "450px",
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center",
+    // position: "absolute", top: "0", left: "-25%", bottom: "0", right: "0",
+    backgroundColor: "#FBF7F2"}}>
       <MainBanner
-        style={{ backgroundColor: "#efefef", width: "200%", height: "450px"}}
-      />
+        className="ManiBanner"
+        alt="main"
+        src="/images/MainBanner.png"
+        // style={{ marginLeft: "-50%"}}
+        // style={{ backgroundColor: "#FBF7F2", width: "200%", height: "450px"}}
+        />
+        </div>
+        <Wrap>
         <H2>중고거래 인기매물</H2>
         <SearchContainer>
           <Search
@@ -49,6 +61,7 @@ const Main = () => {
         </SearchContainer>
   
         <CardList>
+        {/* // style={{backgroundColor: 'gray'}} */}
         {data.map((v, idx) => (
           <CardsBox
             onClick={() => {
@@ -60,47 +73,59 @@ const Main = () => {
           </CardsBox>
         ))}
         </CardList>
+        </Wrap>
     </>
   );
 };
 
 
-const MainBanner = styled.div`
-  margin-left: -50%;
+const MainBanner = styled.img`
     & img {
-      background-position: 50% 50%;
-      max-width: 200%;
-      max-height: 100%;
+      width: 100vw;
+      height: 100vw;
     }
+`;
+
+const Wrap = styled.div`
+  mwidth: 100vw;
+  position: relative;
+  height: 100%;
+  // margin: 0 auto;
+  // background-color: yellow;
 `;
 
 const H2 = styled.div`
   font-size: 1.5rem;
-  margin: 20px auto;
+  margin-bottom: 20px;
   display: flex;
   align-items: center;
   justify-content: center;
 `;
 
 const CardList = styled.div`
-  max-width: 100%;
+  width: 100%;
   height: 100%;
-  margin: 0 auto;
+  // padding-left: 80px;
+  // margin: 0 auto;
+  // margin-left: 150px;
+  // margin-right: 150px;
 
   display:flex;
   flex-direction: row;
   flex-basis: 33.3%;
   flex-wrap : wrap;
 
+
   // border: 5px solid red;
   // background-color: blue;
 `;
 
 const CardsBox = styled.div`
-  width: 25%;
+  width: 195px;
   height: 100%;
   margin-bottom : 4%;
-  
+  margin-left: 4%;
+  margin-right: 4%;  
   // border: 5px solid red;
   // background-color: blue;
 `;
@@ -112,6 +137,10 @@ const SearchContainer = styled.div`
   margin: 0 auto;
   border: 0;
   margin-bottom: 20px;
+  
+  display: flex;
+  align-items: center;
+  justify-content: center;
   img {
     position: absolute;
     right: 10px;
@@ -123,7 +152,8 @@ const Search = styled.input`
   border: 0;
   padding-left: 10px;
   background-color: #eaeaea;
-  width: 100%;
+  
+  width: 70%;
   height: 100%;
   outline: none;
 `;

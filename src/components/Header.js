@@ -1,6 +1,6 @@
 import React from 'react'
 import styled from 'styled-components';
-// import axios from "axios";yar
+import axios from "axios";
 import { Button } from '@material-ui/core';
 import { useNavigate } from 'react-router-dom'
 // import { useDispatch } from "react-redux";
@@ -16,18 +16,18 @@ const Header = () => {
   // const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  // React.useEffect(() => {
-  //   axios.get("http://13.125.106.21:8080/main")
-  //     .then(response => {
-  //       const { accessToken } = response.data;
-  //       console.log(response.data)
-  //       // API 요청하는 콜마다 헤더에 accessToken 담아 보내도록 설정
-  //       axios.defaults.headers.common['Authorization'] = `Bearer ${accessToken}`;
-  //     }).catch(error => {
-  //       console.log(error);
-  //       window.alert("정보 불러오기 실패!");
-  //     });
-  // })
+  React.useEffect(() => {
+    axios.get("http://13.125.106.21:8080/main")
+      .then(response => {
+        const { accessToken } = response.data;
+        console.log(response.data)
+        // API 요청하는 콜마다 헤더에 accessToken 담아 보내도록 설정
+        axios.defaults.headers.common['Authorization'] = `Bearer ${accessToken}`;
+      }).catch(error => {
+        console.log(error);
+        window.alert("정보 불러오기 실패!");
+      });
+  })
 
   const onClickLogOut = () => {
     // localStorage.removeUser("is_login");
