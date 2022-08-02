@@ -6,7 +6,7 @@ import SockJS from "sockjs-client";
 const Chat = () => {
   // const env = process.env.NODE_ENV;
   const[action,setaction]=React.useState();
-  // const ws = Stomp.over(sock);
+  
   // 현재 방정보
 
   const room_id = 1;
@@ -15,14 +15,16 @@ const Chat = () => {
   // 채팅 참여 중인 사용자 정보
   const user_in_chat = ["daehoon", "yeobin"];
   // 보낼 메세지 정보
-  useEffect(()=>{
+
     const devTarget = "http://43.200.174.111:8080/ws"; // 서버와 연결하는 url
  
   const sock = new SockJS(devTarget); // local에 대한 cors설정을 건드려야할듯...
-  setaction(sock);
-  sock.onopen = function() {
+  const ws = Stomp.over(sock);
+    sock.onopen = function() {
     console.log('open');
     sock.send('test');
+    sock.send('살려줘');
+    sock.send('spq??');
 };
 
 sock.onmessage = function(e) {
@@ -33,15 +35,15 @@ sock.onmessage = function(e) {
 sock.onclose = function() {
     console.log('close');
 };
-  },[])
+
 
   const sender_id = "daehoon";
   const startchat = () => {
-    // ws.connect({},conconnected,()=>{alert("연결안됨")})
+    ws.connect({},conconnected,()=>{alert("연결안됨")})
   };
   const conconnected=()=>{
     alert("연결됨")
-    // ws.subscribe("/chatroom/public",onMessageReceived) //url 받아야함
+    ws.subscribe("/chatroom/public",onMessageReceived) //url 받아야함
   }
   const onMessageReceived = (payload)=>{
     var payloadData = JSON.parse(payload.body);
