@@ -99,6 +99,7 @@ const Wrap = styled.div`
 
 const H2 = styled.div`
   font-size: 1.5rem;
+  margin-top: 20px;
   margin-bottom: 20px;
   display: flex;
   align-items: center;
