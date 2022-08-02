@@ -82,7 +82,7 @@ const MakePost = () => {
       .catch(function (error) {
         console.log("에러났음.", error);
       });
-
+    }
 
   const UpdatePostAX = async () => {
     const data = {
@@ -109,14 +109,14 @@ const MakePost = () => {
       refresh_token:sessionStorage.getItem("refresh_token")
      }
      console.log(auth);
-    // const apiImg = axios.create({
-      // baseURL: "http://ec2-54-180-105-24.ap-northeast-2.compute.amazonaws.com/",   
-    //   headers: {
-    //     Authorization: `Bearer ${auth.authorization}`,
-    //     refresh_token: `Bearer ${auth.refresh_token}`,
-    //     "Content-Type": "multipart/form-data",
-    //   },
-    // });
+    const apiImg = axios.create({
+      baseURL: "http://ec2-54-180-105-24.ap-northeast-2.compute.amazonaws.com/",   
+      headers: {
+        Authorization: `Bearer ${auth.authorization}`,
+        refresh_token: `Bearer ${auth.refresh_token}`,
+        "Content-Type": "multipart/form-data",
+      },
+    });
 
     const CreateBoardAXImg = await apiImg
       .put("/api/post/1", UpdateformData)
@@ -134,17 +134,17 @@ const MakePost = () => {
       <WrapTitle>
         <PostTitle>중고거래 글쓰기</PostTitle>
 
-        {/* {true&&<button>예시</button>} */}
+        {true&&<button>예시</button>}
         <Button style={{color: 'gray', margin: "0px 100px 0px 0px"}} variant="outlined" color="inherit">
           예시</Button>
 
-        {/* {postId=="0"?<button style={{ width: "200px" }} onClick={MakePostAX}>
+        {postId=="0"?<button style={{ width: "200px" }} onClick={MakePostAX}>
           작성하기
         </button> : <button 
         style={{ color: 'white'}} variant="outlined" color="inherit"
         onClick={UpdatePostAX}>
           수정하기
-        </button>} */}
+        </button>}
         
      
       </WrapTitle>
@@ -203,7 +203,7 @@ const MakePost = () => {
     </Wrap>
   );
 };
-};
+
 
 export default MakePost;
 
