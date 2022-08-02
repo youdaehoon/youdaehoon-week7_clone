@@ -9,7 +9,7 @@ import { useLocation, useNavigate, useParams } from "react-router-dom";
 //       nickname: “닉네임”,
 //       profile: “프로필 사진 주소”,
 //       address: “주소”
-//   }
+//   } 
 //   title: "제목입니다",
 //   category: “카테고리”,
 //   price: 가격,
@@ -67,16 +67,16 @@ const Detail = (props) => {
     //     },
     //   });
   
-      // const CreateBoardAXImg = await apiDetail
-      //   .get("/api/posts/1")
-      //   .then(function (response) {
-      //     console.log(response, "에러안남!!!!!");
-      //     console.log('보내주신data는',response.data)
-      //     setdataTest(response.data)
-      //   })
-      //   .catch(function (error) {
-      //     console.log("에러났음.", error)
-      //   });
+  //     const CreateBoardAXImg = await apiDetail
+  //       .get("/api/posts/1")
+  //       .then(function (response) {
+  //         console.log(response, "에러안남!!!!!");
+  //         console.log('보내주신data는',response.data)
+  //         setdataTest(response.data)
+  //       })
+  //       .catch(function (error) {
+  //         console.log("에러났음.", error)
+  //       });
   // }, []);
 
 
