@@ -9,12 +9,15 @@ import Cards from "../components/Cards";
 
 const Main = () => {
   const data = useSelector((state) => state.post.post);
-
   // console.log("나야나", data);
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
   
+  const auth = {
+    authorization:sessionStorage.getItem("access_token"),
+    refresh_token:sessionStorage.getItem("refresh_token")
+    }
 
     // React.useEffect(() => {
     //     const apiMain = axios.create({
@@ -25,7 +28,7 @@ const Main = () => {
     //       });
       
     //       const CreateBoardAXImg = await apiMain
-    //         .get("/posts?keyword=""&location=""&size=8&lastId=8") // 로그인 후 "지역" 처리 - "posts?size=12&page=0"
+    //         .get("/api/posts?keyword=""&location=""&size=8&lastId=8") // 로그인 후 "지역" 처리 - "posts?size=12&page=0"
     //         .then(function (response) {
     //           console.log(response, "에러 놉");
     //         })

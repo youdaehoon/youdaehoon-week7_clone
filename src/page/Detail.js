@@ -50,22 +50,26 @@ const Detail = (props) => {
   });
 
 
-  let {postId}=useParams(); //이름을 맞춰주면 된다 
+  let {postId} = useParams(); // 이름을 맞춰주면 된다 
   const navigation=useNavigate();
   
-
- 
-  console.log(postId)// console 한번 확인해보세요!
+  console.log(postId) // console 한번 확인해보세요!
   const ModdifyPost=()=>{
     navigation(`/makepost/${postId}`)
   }
+
+  const auth = {
+    Authorization:sessionStorage.getItem("accessToken"),
+    refreshToken:sessionStorage.getItem("refreshToken")
+    }
+  
   // React.useEffect( async() => {
-    // const apiDetail = axios.create({
-    // baseURL: "ec2-54-180-105-24.ap-northeast-2.compute.amazonaws.com",
-    //     headers: {
-    //       "Content-Type": `application/json`, 
-    //     },
-    //   });
+  //   const apiDetail = axios.create({
+  //   baseURL: "ec2-54-180-105-24.ap-northeast-2.compute.amazonaws.com",
+  //       headers: {
+  //         "Content-Type": `application/json`, 
+  //       },
+  //     });
   
   //     const CreateBoardAXImg = await apiDetail
   //       .get("/api/posts/1")
@@ -79,23 +83,24 @@ const Detail = (props) => {
   //       });
   // }, []);
 
+  
 
   // 삭제
     const ApiDetailDel = () => {
-      // axios.delete("/ec2-54-180-105-24.ap-northeast-2.compute.amazonaws.com/post/{postId}",
-      // {headers: {
-      //   Authorization: `Bearer ${auth.authorization}`,
-      //   refresh_token: `Bearer ${auth.refresh_token}`,
-      //   "Content-Type": "multipart/form-data"
-      // }})
-      // .then(function (response) {
-      //   // handle success
-      //   console.log(response, "에러 놉!");
-      // })
-      // .catch(function (error) {
-      //   // handle error
-      //   console.log(error, "에러 남!");
-      // });
+      axios.delete("/ec2-54-180-105-24.ap-northeast-2.compute.amazonaws.com/post/{postId}",
+      {headers: {
+        Authorization: `Bearer ${auth.authorization}`,
+        refresh_token: `Bearer ${auth.refresh_token}`,
+        "Content-Type": "multipart/form-data"
+      }})
+      .then(function (response) {
+        // handle success
+        console.log(response, "에러 놉!");
+      })
+      .catch(function (error) {
+        // handle error
+        console.log(error, "에러 남!");
+      });
       console.log("삭제됨!", ApiDetailDel)
     }
     

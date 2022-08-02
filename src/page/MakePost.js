@@ -19,6 +19,11 @@ const MakePost = () => {
     ["기타 중고물품", "ETC"],
   ];
 
+  const auth={
+    authorization:sessionStorage.getItem("access_token"),
+    refresh_token:sessionStorage.getItem("refresh_token")
+    }
+
   const RefPrice = React.useRef(null);
   const RefContent = React.useRef(null);
   const RefTitle = React.useRef(null);
@@ -49,23 +54,24 @@ const MakePost = () => {
     console.log("보내는 데이터 file형식은", formData);
     console.log("file 안에서 data의 형식 및 이름은", data);
 
-    // const apiImg = axios.create({
-    //   baseURL: "ec2-54-180-105-24.ap-northeast-2.compute.amazonaws.com",
-    //   headers: {
-    //     Authorization: `Bearer ${auth.authorization}`,
-    //     refresh_token: `Bearer ${auth.refresh_token}`,
-    //     "Content-Type": "multipart/form-data",
-    //   },
-    // });
 
-    // const CreateBoardAXImg = await apiImg
-    //   .post("posts", formData)
-    //   .then(function (response) {
-    //     console.log(response, "에러안남!!!!!");
-    //   })
-    //   .catch(function (error) {
-    //     console.log("에러났음.", error);
-    //   });
+    const apiImg = axios.create({
+      baseURL: "ec2-54-180-105-24.ap-northeast-2.compute.amazonaws.com",
+      headers: {
+        Authorization: `Bearer ${auth.authorization}`,
+        refresh_token: `Bearer ${auth.refresh_token}`,
+        "Content-Type": "multipart/form-data",
+      },
+    });
+
+    const CreateBoardAXImg = await apiImg
+      .post("posts", formData)
+      .then(function (response) {
+        console.log(response, "에러안남!!!!!");
+      })
+      .catch(function (error) {
+        console.log("에러났음.", error);
+      });
   };
   const UpdatePostAX = async () => {
     const data = {
@@ -85,23 +91,23 @@ const MakePost = () => {
     console.log("보내는 데이터 file형식은", UpdateformData);
     console.log("file 안에서 data의 형식 및 이름은", data);
 
-    // const apiImg = axios.create({
-    //   baseURL: "ec2-54-180-105-24.ap-northeast-2.compute.amazonaws.com",
-    //   headers: {
-    //     Authorization: `Bearer ${auth.authorization}`,
-    //     refresh_token: `Bearer ${auth.refresh_token}`,
-    //     "Content-Type": "multipart/form-data",
-    //   },
-    // });
+    const apiImg = axios.create({
+      baseURL: "ec2-54-180-105-24.ap-northeast-2.compute.amazonaws.com",
+      headers: {
+        Authorization: `Bearer ${auth.authorization}`,
+        refresh_token: `Bearer ${auth.refresh_token}`,
+        "Content-Type": "multipart/form-data",
+      },
+    });
 
-    // const CreateBoardAXImg = await apiImg
-    //   .put("/api/post/1", UpdateformData)
-    //   .then(function (response) {
-    //     console.log(response, "에러안남!!!!!");
-    //   })
-    //   .catch(function (error) {
-    //     console.log("에러났음.", error);
-    //   });
+    const CreateBoardAXImg = await apiImg
+      .put("/api/post/1", UpdateformData)
+      .then(function (response) {
+        console.log(response, "에러안남!!!!!");
+      })
+      .catch(function (error) {
+        console.log("에러났음.", error);
+      });
   };
 
   return (
