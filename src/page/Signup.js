@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import styled from "styled-components";
 import Button from "@material-ui/core/Button";
+// import DaumPostCode from "react-daum-postcode";
 
 const Signup = () => {
   const navigate = useNavigate();
@@ -18,13 +19,6 @@ const Signup = () => {
   const PreviewFrofileImg = (e) => {
     console.log(e.target.files[0]);
     setUserImg(e.target.files[0]);
-  };
-
-  const selectList = ["시/도 선택","서울특별시","인천광역시","대전광역시","광주광역시","대구광역시","울산광역시","부산광역시","경기도","강원도","충청북도","충청남도","전라북도","전라남도","경상북도","경상남도","제주도"];
-  const [Selected, setSelected] = React.useState("시/도 선택");
-
-  const handleSelect = (e) => {
-    setSelected(e.target.value);
   };
 
   // const inputRef = React.useRef([]);
@@ -70,12 +64,12 @@ const Signup = () => {
   //       //   });
   //     }
   //   }
-  //    //2. key가 password인 경우, => 8자 이상이어야 하고, 숫자/소문자를 모두 포함해야 한다.
+  //    //2. key가 password인 경우, => 최소 8자리 이상, 영문 대소문자, 숫자 포함
   //   if (key === 'password') {
   //     var reg = /^(?=.*?[a-zA-Z])(?=.*?[0-9]).{8,}$/;
   //     var password = e.target.value;
   //     if (password.length > 0 && false === reg.test(password)) {
-  //       alert('영문, 숫자 조합으로 8자리 이상 입력해주세요.');
+  //       alert('영문 대소문자, 숫자 조합으로 8자리 이상 입력해주세요.');
   //     } else {
   //       this.setState({ [key]: e.target.value });
   //     }
@@ -113,6 +107,14 @@ const Signup = () => {
     console.log("회원가입 정보", data22);
     console.log(userImg);
 
+    if(data22.username.indexOf('@')==-1){ 
+      alert("이메일을 올바르게 입력해주세요.")
+    };
+
+    if(data22.password !== data22.passwordCheck){
+      return alert('비밀번호가 일치하지 않습니다.')
+    };
+
     const formData = new FormData();
     formData.append("username", data22.username);
     formData.append("password", data22.password);
@@ -132,15 +134,16 @@ const Signup = () => {
     })
       .then((response) => {
         console.log("회원가입 완료", response.data);
+        alert("회원가입 되었습니다.");
+        navigate("/login");
       })
       .catch((error) => {
         console.log("에러 발생", error);
       });
 
-    navigate("/login");
+    
   };
 
-  // 중복확인 기능. 비밀번호 영대소문자 8자리 이상. 주소는 option의 select 이용해서 입력하게끔.
   // 주소 {} 객체로 보내기. circuit:~도, si:~시, gu:~구, dong:~동/읍/면. null로 보내면 나머지로 조합.
 
   return (
@@ -157,7 +160,7 @@ const Signup = () => {
               placeholder="이메일"
               style={{
                 width: "200px",
-                height: "30px",
+                height: "35px",
                 margin: "auto 10px",
                 fontSize: "14px",
                 border: "1px solid #abb8c3",
@@ -178,7 +181,7 @@ const Signup = () => {
             placeholder="비밀번호"
             style={{
               width: "250px",
-              height: "30px",
+              height: "35px",
               margin: "10px 30px",
               fontSize: "14px",
               border: "1px solid #abb8c3",
@@ -195,7 +198,7 @@ const Signup = () => {
             placeholder="비밀번호 재입력"
             style={{
               width: "250px",
-              height: "30px",
+              height: "35px",
               margin: "0px 30px",
               fontSize: "14px",
               border: "1px solid #abb8c3",
@@ -213,7 +216,7 @@ const Signup = () => {
               placeholder="닉네임"
               style={{
                 width: "200px",
-                height: "30px",
+                height: "35px",
                 margin: "auto 10px",
                 fontSize: "14px",
                 border: "1px solid #abb8c3",
@@ -226,7 +229,16 @@ const Signup = () => {
             </Button>
           </Box>
           <Box>
-            <p style={{ fontSize: "14px", marginLeft: "10px", padding: "10px", textAlign: "center" }}>프로필 사진</p>
+            <p
+              style={{
+                fontSize: "14px",
+                marginLeft: "10px",
+                padding: "10px",
+                textAlign: "center",
+              }}
+            >
+              프로필 사진
+            </p>
             <input
               // onChange={(e) => {
               //   handleSignUpValue('profileImage');
@@ -236,33 +248,29 @@ const Signup = () => {
               type="file"
               accept="image/*"
               name="imageUpload"
-              style={{ width: "10vw", height: "20px", margin: "15px", padding: "10px" }}
+              style={{
+                width: "15vw",
+                height: "20px",
+                margin: "15px",
+                padding: "10px",
+              }}
             />
           </Box>
           <Box>
-            <select
-              className="sido"
-              id="sido"
-              onChange={handleSelect}
-              value={Selected}
-              style={{ margin: "10px", width: "90px", height: "30px", fontSize: "14px", border: "1px solid #abb8c3", borderRadius: "3px" }}
-            >
-              {selectList.map((item) => (
-                <option value={item} key={item}>
-                  {item}
-                </option>
-              ))}
-            </select>
-            <select name="gugun" id="gugun"
-            style={{ margin: "10px", width: "90px", height: "30px", fontSize: "14px", border: "1px solid #abb8c3", borderRadius: "3px" }}
-            ></select>
             <input
               ref={refAddress}
               // onChange={(e) => {
               //   handleSignUpValue(e.target.value);
               // }}
-              placeholder="동/읍/면 입력"
-              style={{ margin: "10px", width: "90px", height: "30px", fontSize: "14px", border: "1px solid #abb8c3", borderRadius: "3px" }}
+              placeholder="지번 주소 입력 (시/도, 구/군, 동까지 입력해주세요.)"
+              style={{
+                margin: "10px",
+                width: "330px",
+                height: "35px",
+                fontSize: "14px",
+                border: "1px solid #abb8c3",
+                borderRadius: "3px",
+              }}
             />
           </Box>
           <Button
@@ -278,7 +286,7 @@ const Signup = () => {
               padding: "8px",
               backgroundColor: "#009688",
               color: "white",
-              marginTop: "20px",
+              marginTop: "15px",
             }}
           >
             회원가입
