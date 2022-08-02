@@ -1,28 +1,35 @@
 import React from 'react'
 import styled from 'styled-components';
-// import axios from "axios";yar
+import axios from "axios";
 import { Button } from '@material-ui/core';
-import { useNavigate } from 'react-router-dom'
-// import { useDispatch } from "react-redux";
-
-// import cookie from 'react-cookie'
-// import { getCookie, setCookie } from "../shared/Cookie";
-// import { actionCreators } from "../redux/modules/user";
+import { 
+  useNavigate,
+  // useParams
+ } from 'react-router-dom'
+import { useDispatch } from "react-redux";
 
 const Header = () => {
-  // const [is_login, setIsLogin] = React.useState(false);
-  // console.log(is_login)
-
-  // const dispatch = useDispatch();
+  const dispatch = useDispatch();
   const navigate = useNavigate();
 
+  // const [is_login, setIsLogin] = React.useState(false);
+  // console.log("나야나",is_login)
+
+  // let { postId } = useParams();
+  // console.log(postId)// console 한번 확인해보세요!
+
   // React.useEffect(() => {
-  //   axios.get("http://13.125.106.21:8080/main")
-  //     .then(response => {
+  //   axios.get("ec2-54-180-105-24.ap-northeast-2.compute.amazonaws.com/",
+  //   { headers: {
+  //     Authorization: `Bearer ${auth.authorization}`,
+  //     refresh_token: `Bearer ${auth.refresh_token}`,
+  //     "Content-Type": "multipart/form-data"
+  //   }})
+  //   .then(response => {
   //       const { accessToken } = response.data;
   //       console.log(response.data)
-  //       // API 요청하는 콜마다 헤더에 accessToken 담아 보내도록 설정
-  //       axios.defaults.headers.common['Authorization'] = `Bearer ${accessToken}`;
+  //       		    // API 요청하는 콜마다 헤더에 accessToken 담아 보내도록 설정
+	// 	    axios.defaults.headers.common['Authorization'] = `Bearer ${accessToken}`;
   //     }).catch(error => {
   //       console.log(error);
   //       window.alert("정보 불러오기 실패!");
@@ -31,26 +38,18 @@ const Header = () => {
 
   const onClickLogOut = () => {
     // localStorage.removeUser("is_login");
-    // sessionStorage.removeUser("is_login");
+    sessionStorage.removeUser("accessToken");
     window.alert("로그아웃!")
     navigate("/");
   }
 
-  // React.useEffect(() => {
-
-  //   // 쿠키를 가져오기
-  //   let cookie = getCookie("is_login");
-  //   // 확인
-  //   console.log(cookie);
-  //   // 쿠키가 있으면?
-  //   if (cookie) {
-  //     setIsLogin(true);
-  //   } else {
-  //     setIsLogin(false);
+  // const auth ={
+  //   Authorization:sessionStorage.getItem("accessToken"),
+  //   refresh_token:sessionStorage.getItem("refreshToken")
   //   }
-  // });
+  //   console.log("나야나", auth)
 
-  // if (is_login) {
+  if ("accessToken") {
   return (
     <div className="App">
       <Nav>
@@ -58,8 +57,9 @@ const Header = () => {
           navigate("/")
         }} style={{ color: 'firebrick', fontSize: '24px', cursor: "pointer" }}>토마토마켓</Logo>
 
-        <Text>토마</Text>
-        {/* 로그인 전 상태 */}
+        <Text>토마</Text> 
+        {/* {nickname.params} */}
+        {/* 로그인 전 상태
         <BtngruopBf>
           <Button onClick={() => {
             navigate('/login')
@@ -69,7 +69,7 @@ const Header = () => {
             navigate('/signup')
           }} style={{ color: 'gray' }} variant="outlined" color="inherit">
             회원가입</Button>
-        </BtngruopBf>
+        </BtngruopBf> */}
 
 
         {/* 로그인 후 상태 */}
@@ -88,28 +88,28 @@ const Header = () => {
   );
 };
 
-//   return (
-//     <div className="App">
-//       <Nav>
-//         <Logo onClick={() => {
-//           navigate("/")
-//         }} style={{ color: 'firebrick', fontSize: '24px', cursor: "pointer" }}>FleaMarket</Logo>
+  return (
+    <div className="App">
+      <Nav>
+        <Logo onClick={() => {
+          navigate("/")
+        }} style={{ color: 'firebrick', fontSize: '24px', cursor: "pointer" }}>FleaMarket</Logo>
 
-//         {/* 로그인 전 상태 */}
-//         <Btngruop>
-//           <Button onClick={() => {
-//             navigate('/login')
-//           }} style={{ color: 'gray', margin: "0px 8px 0px 0px" }} variant="outlined" color="inherit">
-//             Login</Button>
-//           <Button onClick={() => {
-//             navigate('/signup')
-//           }} style={{ color: 'gray' }} variant="outlined" color="inherit">
-//             회원가입</Button>
-//         </Btngruop>
-//       </Nav>
-//     </div>
-//   );
-// };
+        {/* 로그인 전 상태 */}
+        <BtngruopBf>
+          <Button onClick={() => {
+            navigate('/login')
+          }} style={{ color: 'gray', margin: "0px 8px 0px 0px" }} variant="outlined" color="inherit">
+            Login</Button>
+          <Button onClick={() => {
+            navigate('/signup')
+          }} style={{ color: 'gray' }} variant="outlined" color="inherit">
+            회원가입</Button>
+        </BtngruopBf>
+      </Nav>
+    </div>
+  );
+};
 
 
 const Nav = styled.div`
@@ -167,7 +167,7 @@ const BtngruopAf = styled.div`
         display: inline-block;
         position: absolute;
         margin-right: 10px;
-        margin-top: 40px;
+        // margin-top: 40px;
         top: 20px;
         right: 16px;
         width: 200px;
