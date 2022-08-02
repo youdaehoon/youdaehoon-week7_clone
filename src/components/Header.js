@@ -12,11 +12,10 @@ const Header = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  // const [is_login, setIsLogin] = React.useState(false);
-  // console.log("나야나",is_login)
-
-  // let { postId } = useParams();
-  // console.log(postId)// console 한번 확인해보세요!
+  const auth ={
+    Authorization:sessionStorage.getItem("accessToken"),
+    refresh_token:sessionStorage.getItem("refreshToken")
+    }
 
   // React.useEffect(() => {
   //   axios.get("ec2-54-180-105-24.ap-northeast-2.compute.amazonaws.com/",
@@ -28,65 +27,32 @@ const Header = () => {
   //   .then(response => {
   //       const { accessToken } = response.data;
   //       console.log(response.data)
-  //       		    // API 요청하는 콜마다 헤더에 accessToken 담아 보내도록 설정
-	// 	    axios.defaults.headers.common['Authorization'] = `Bearer ${accessToken}`;
+  //       		    
   //     }).catch(error => {
   //       console.log(error);
   //       window.alert("정보 불러오기 실패!");
   //     });
   // })
+  const onClickSignUp = () => {
+    sessionStorage.getItem("accessToken")
+    navigate('/signup')
+    }
+
+  const onClickLogin = () => {
+    sessionStorage.getItem("accessToken")
+    navigate("/login");
+  }
 
   const onClickLogOut = () => {
-    // localStorage.removeUser("is_login");
-    sessionStorage.removeUser("accessToken");
+    sessionStorage.clear("accessToken")
     window.alert("로그아웃!")
     navigate("/");
   }
 
-  // const auth ={
-  //   Authorization:sessionStorage.getItem("accessToken"),
-  //   refresh_token:sessionStorage.getItem("refreshToken")
-  //   }
-  //   console.log("나야나", auth)
-
-  if ("accessToken") {
-  return (
-    <div className="App">
-      <Nav>
-        <Logo onClick={() => {
-          navigate("/")
-        }} style={{ color: 'firebrick', fontSize: '24px', cursor: "pointer" }}>토마토마켓</Logo>
-
-        <Text>토마</Text> 
-        {/* {nickname.params} */}
-        {/* 로그인 전 상태
-        <BtngruopBf>
-          <Button onClick={() => {
-            navigate('/login')
-          }} style={{ color: 'gray', margin: "0px 8px 0px 0px" }} variant="outlined" color="inherit">
-            Login</Button>
-          <Button onClick={() => {
-            navigate('/signup')
-          }} style={{ color: 'gray' }} variant="outlined" color="inherit">
-            회원가입</Button>
-        </BtngruopBf> */}
-
-
-        {/* 로그인 후 상태 */}
-        <BtngruopAf>
-          <Button onClick={() => {
-            navigate('/Makepost/0')
-          }} style={{ color: 'gray', margin: "0px 8px 0px 0px" }} variant="outlined" color="inherit">
-            작성하기
-          </Button>
-          <Button onClick={onClickLogOut}
-            style={{ color: 'gray' }} variant="outlined" color="inherit">
-            로그아웃</Button>
-        </BtngruopAf>
-      </Nav>
-    </div>
-  );
-};
+  const isLogin = () => {
+    sessionStorage.getItem("accessToken")
+    console.log("로그인 햇어?", isLogin)
+  }
 
   return (
     <div className="App">
@@ -95,21 +61,33 @@ const Header = () => {
           navigate("/")
         }} style={{ color: 'firebrick', fontSize: '24px', cursor: "pointer" }}>FleaMarket</Logo>
 
+        <Text>토마</Text> 
+        {/* {nickname.params} */}
+
         {/* 로그인 전 상태 */}
-        <BtngruopBf>
-          <Button onClick={() => {
-            navigate('/login')
-          }} style={{ color: 'gray', margin: "0px 8px 0px 0px" }} variant="outlined" color="inherit">
+        
+          { isLogin ? (
+            <BtngruopBf>
+          <Button onClick={onClickLogin} style={{ color: 'gray', margin: "0px 8px 0px 0px" }} variant="outlined" color="inherit">
             Login</Button>
+          <Button onClick={onClickSignUp} style={{ color: 'gray' }} variant="outlined" color="inherit">
+            회원가입</Button> 
+            </BtngruopBf>) : (
+            <BtngruopBf>
           <Button onClick={() => {
-            navigate('/signup')
-          }} style={{ color: 'gray' }} variant="outlined" color="inherit">
-            회원가입</Button>
-        </BtngruopBf>
+            navigate('/Makepost/0')
+          }}
+          style={{ color: 'gray', margin: "0px 8px 0px 0px" }} variant="outlined" color="inherit">
+            작성하기 / Logout</Button>
+          <Button onClick={onClickLogOut} style={{ color: 'gray' }} variant="outlined" color="inherit">
+            LogOut</Button>
+            </BtngruopBf>)}
+        
       </Nav>
     </div>
   );
 };
+
 
 
 const Nav = styled.div`

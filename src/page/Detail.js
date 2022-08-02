@@ -106,8 +106,10 @@ const Detail = (props) => {
     
   
   return (
-    <div>
-       image: <img src={dataTest.image[0]} style={{width:"50px"}}/>
+    <Wrap>
+
+        <img src={dataTest.image[0]} style={{width:"450px", height: "100%"}}/>
+
       <p />
       <div>
         프로필사진 :<img src={dataTest.seller.profile }style={{width:"50px"}} />
@@ -124,7 +126,7 @@ const Detail = (props) => {
  
      <div>
 
-     <TradeState>
+     {/* <TradeState>
               <span>
                 {dataTest.status === "1" ? (
                   <Booking>예약중</Booking>
@@ -134,16 +136,28 @@ const Detail = (props) => {
                   ""
                 )}
               </span>
-      </TradeState>
+      </TradeState> */}
      </div>
 
       <div>like:{dataTest.view} view:{dataTest.like}</div>
 
       <button onClick={ApiDetailDel}>X</button>
-      <button onClick={ModdifyPost}>수정하기</button>
-    </div>
+      <button onClick={ModdifyPost}>수정</button>
+    </Wrap>
   );
 };
+
+const Wrap = styled.div`
+  max-width: 70%;
+  position: relative;
+  height: 100%;
+  margin: 0 auto;
+
+  margin-top: 40px;
+  padding: 20px 20px 60px 20px;
+  border: solid 1px #dadada;
+  border-radius: 8px;
+`;
 
 const TradeState = styled.div`
   margin-top: 5px;

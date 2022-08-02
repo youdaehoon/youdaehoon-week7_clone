@@ -133,20 +133,19 @@ const MakePost = () => {
 
       <WrapTitle>
         <PostTitle>중고거래 글쓰기</PostTitle>
+        {/* <Button style={{color: 'gray', margin: "0px 100px 0px 0px"}} variant="outlined" color="inherit">
+          예시</Button> */}
 
-        {true&&<button>예시</button>}
-        <Button style={{color: 'gray', margin: "0px 100px 0px 0px"}} variant="outlined" color="inherit">
-          예시</Button>
-
-        {postId=="0"?<button style={{ width: "200px" }} onClick={MakePostAX}>
-          작성하기
+        {postId=="0"?<button
+        style={{ color: 'gray', margin: "0px 100px 0px 0px"}}
+        variant="outlined" color="inherit" onClick={MakePostAX}>
+          작성
         </button> : <button 
-        style={{ color: 'white'}} variant="outlined" color="inherit"
-        onClick={UpdatePostAX}>
-          수정하기
+        style={{ color: 'gray', margin: "0px 100px 0px 0px"}}
+        variant="outlined" color="inherit" onClick={UpdatePostAX}>
+          수정
         </button>}
         
-     
       </WrapTitle>
       <div
         style={{
@@ -245,8 +244,10 @@ const PostTitle = styled.div`
   font-size: 20px;
   font-weight: bold;
   width: 70%;
+  height: 30px;
   text-align: center;
   margin-left: 55px;
+  backgroud-color: red;
 `;
 
 const WrapTitleInput = styled.div`
