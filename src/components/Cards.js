@@ -7,8 +7,6 @@ import { useNavigate, useParams } from 'react-router-dom'
 
 const Cards = (props) => {
     const dispatch = useDispatch();
-    // const [boardList, setBoardList] = React.useState();
-
     const navigate = useNavigate();
     
     const { image, title, price } = props.post;
