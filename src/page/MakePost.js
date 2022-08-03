@@ -74,7 +74,7 @@ const MakePost = () => {
       }
     });
 
-    const CreateBoardAXImg = await apiImg
+    const CreateBoardAXImg = await apiImg 
       .post("api/post", formData)
       .then(function (response) {
         console.log(response, "에러안남!!!!!");

@@ -42,6 +42,10 @@ const Header = () => {
     window.alert("로그아웃!")
     navigate("/");
   }
+  const gochat=()=>{
+    navigate(`/chat/`)
+    
+  }
 
   // const auth ={
   //   Authorization:sessionStorage.getItem("accessToken"),
@@ -56,7 +60,7 @@ const Header = () => {
         <Logo onClick={() => {
           navigate("/")
         }} style={{ color: 'firebrick', fontSize: '24px', cursor: "pointer" }}>토마토마켓</Logo>
-
+ <button onClick={gochat}>나의 채팅 보여주기</button>
         <Text>토마</Text> 
         {/* {nickname.params} */}
         {/* 로그인 전 상태
@@ -83,6 +87,7 @@ const Header = () => {
             style={{ color: 'gray' }} variant="outlined" color="inherit">
             로그아웃</Button>
         </BtngruopAf>
+       
       </Nav>
     </div>
   );

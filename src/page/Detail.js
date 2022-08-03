@@ -2,31 +2,13 @@ import React from "react";
 import styled from "styled-components";
 import axios from "axios";
 import { useLocation, useNavigate, useParams } from "react-router-dom";
+import { over } from "stompjs";
+import SockJS from "sockjs-client";
 
-// {
-//   postId: “post 아이디”
-//   seller: {
-//       nickname: “닉네임”,
-//       profile: “프로필 사진 주소”,
-//       address: “주소”
-//   } 
-//   title: "제목입니다",
-//   category: “카테고리”,
-//   price: 가격,
-//   content: “본문”,
-//   
-//   createdAt: “시간”,
-//   like: 좋아요 수,
-//   view: 조회 수,
-//   image: [
-//       이미지 경로1,
-//       이미지 경로2,
-//       이미지 경로3,
-//       ….
-//   ]
-// }
+var stompClient = null;
 
 const Detail = (props) => {
+ 
   const [dataTest, setdataTest]=React.useState({
     postid:"1",
     seller:{
@@ -54,6 +36,16 @@ const Detail = (props) => {
   const navigation=useNavigate();
   
   console.log(postId) // console 한번 확인해보세요!
+
+  // 채팅방 생성
+  const gochat=  ()=>{
+    let Sock = new SockJS("http://43.200.174.111:8080/ws"); //배포주소 ws가 들어가야한다.
+    stompClient = over(Sock); //스톰프에담는다.
+    let data={};
+    stompClient.send("/app/message", {}, JSON.stringify(data));//
+    // navigation(`/chat/`) //async await이  내 생각대로 작동한다면 ok
+    
+  }
   const ModdifyPost=()=>{
     navigation(`/makepost/${postId}`)
   }
@@ -141,6 +133,9 @@ const Detail = (props) => {
 
       <button onClick={ApiDetailDel}>X</button>
       <button onClick={ModdifyPost}>수정하기</button>
+      <hr></hr>
+      <button onClick={gochat}>채팅하기</button>
+      
     </div>
   );
 };
