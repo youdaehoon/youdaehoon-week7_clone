@@ -13,9 +13,9 @@ const Header = () => {
   const navigate = useNavigate();
 
   const auth = {
-    authorization:sessionStorage.getItem("access_token"),
-    refresh_token:sessionStorage.getItem("refresh_token")
-    }
+    authorization: sessionStorage.getItem("access_token"),
+    refresh_token: sessionStorage.getItem("refresh_token")
+  }
 
   // React.useEffect(() => {
   //   axios.get("ec2-54-180-105-24.ap-northeast-2.compute.amazonaws.com/",
@@ -37,7 +37,7 @@ const Header = () => {
   const onClickSignUp = () => {
     sessionStorage.getItem("access_token")
     navigate('/signup')
-    }
+  }
 
   const onClickLogin = () => {
     sessionStorage.getItem("access_token")
@@ -54,15 +54,23 @@ const Header = () => {
     // sessionStorage 가져오기
     let isLogin = sessionStorage.getItem("access_token");
     // sessionStorage 확인
-    console.log("로그인 했어?", isLogin);
+    // console.log("로그인 했어?", isLogin);
     // sessionStorage가 있으면?
-    if(isLogin){
-        setIsLogin(true);
-    }else{
-        setIsLogin(false);
+    if (isLogin) {
+      setIsLogin(true);
+    } else {
+      setIsLogin(false);
     }
   });
 
+  const nickname = sessionStorage.getItem("nickname")
+  // console.log("닉네임 있어?", nickname);
+
+  const profile = sessionStorage.getItem("profile")
+  // console.log("프사 있어?", profile);
+
+  const address = sessionStorage.getItem("address")
+  // console.log("주소 있어?", address);
 
   return (
     <div className="App">
@@ -71,28 +79,26 @@ const Header = () => {
           navigate("/")
         }} style={{ color: 'firebrick', fontSize: '24px', cursor: "pointer" }}>FleaMarket</Logo>
 
-        <Text>토마</Text>
-        {/* console.log() */}
-
         {/* 로그인 전 상태 */}
+        {!isLogin ? (
+          <Btngruop>
+            <Button onClick={onClickLogin} style={{ color: 'gray', margin: "0px 8px 0px 0px" }} variant="outlined" color="inherit">
+              Login</Button>
+            <Button onClick={onClickSignUp} style={{ color: 'gray' }} variant="outlined" color="inherit">
+              회원가입</Button>
+          </Btngruop>) : (
 
-          {!isLogin ? (
-            <BtngruopBf>
-          <Button onClick={onClickLogin} style={{ color: 'gray', margin: "0px 8px 0px 0px" }} variant="outlined" color="inherit">
-            Login</Button>
-          <Button onClick={onClickSignUp} style={{ color: 'gray' }} variant="outlined" color="inherit">
-            회원가입</Button> 
-            </BtngruopBf>) : (
-            <BtngruopBf>
-          <Button onClick={() => {
-            navigate('/Makepost/0')
-          }}
-          style={{ color: 'gray', margin: "0px 8px 0px 0px" }} variant="outlined" color="inherit">
-            작성하기</Button>
-          <Button onClick={onClickLogOut} style={{ color: 'gray' }} variant="outlined" color="inherit">
-            LogOut</Button>
-            </BtngruopBf>)}
-        
+
+          <Btngruop>
+            <Text>{nickname}</Text>
+            <Button onClick={() => {
+              navigate('/Makepost/0')
+            }}
+              style={{ color: 'gray', margin: "0px 8px 0px 0px" }} variant="outlined" color="inherit">
+              작성하기</Button>
+            <Button onClick={onClickLogOut} style={{ color: 'gray' }} variant="outlined" color="inherit">
+              LogOut</Button>
+          </Btngruop>)}
       </Nav>
     </div>
   );
@@ -122,8 +128,9 @@ const Logo = styled.div`
 const Text = styled.div`
         display: inline-block;
         position: absolute;
-        top: 25px;
-        margin-right : 40px;
+        top: 5px;
+        margin-right: 40px;
+        margin-bottom: -40px; 
         text-align: right;
         right: 200px;
         width: 300px;
@@ -140,7 +147,7 @@ const Text = styled.div`
         }
 `;
 
-const BtngruopBf = styled.div`
+const Btngruop = styled.div`
         display: inline-block;
         position: absolute;
         margin-right : 10px;
@@ -151,16 +158,5 @@ const BtngruopBf = styled.div`
         // background-color: green;
 `;
 
-const BtngruopAf = styled.div`
-        display: inline-block;
-        position: absolute;
-        margin-right: 10px;
-        // margin-top: 40px;
-        top: 20px;
-        right: 16px;
-        width: 200px;
-        color: gray;
-        // background-color: green;
-`;
 
 export default Header
