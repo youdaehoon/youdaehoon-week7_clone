@@ -133,18 +133,16 @@ const MakePost = () => {
 
       <WrapTitle>
         <PostTitle>중고거래 글쓰기</PostTitle>
-        {/* <Button style={{color: 'gray', margin: "0px 100px 0px 0px"}} variant="outlined" color="inherit">
-          예시</Button> */}
-
-        {postId=="0"?<button
-        style={{ color: 'gray', margin: "0px 100px 0px 0px"}}
-        variant="outlined" color="inherit" onClick={MakePostAX}>
+        
+        {postId == "0" ? <Button
+        style={{color: 'gray', marginRight: "100px"}} variant="outlined" color="inherit"
+        onClick={MakePostAX}>
           작성
-        </button> : <button 
-        style={{ color: 'gray', margin: "0px 100px 0px 0px"}}
-        variant="outlined" color="inherit" onClick={UpdatePostAX}>
+        </Button> : <Button
+        style={{color: 'gray', marginRight: "100px"}} variant="outlined" color="inherit"
+        onClick={UpdatePostAX}>
           수정
-        </button>}
+        </Button>}
         
       </WrapTitle>
       <div
@@ -164,7 +162,7 @@ const MakePost = () => {
         />
         {ImageFile.lengh !== 0 && (
           <img
-            style={{ width:'150px', height: "100%", objectFit: "cover", marginLeft: "20px"}}
+            style={{ width:'150px', height: "100%", objectFit: "cover", marginLeft: "20px" }}
             src={ShowImg}
           />
         )}
@@ -175,7 +173,7 @@ const MakePost = () => {
         <select
           id="pet-select"
           ref={RefCategory}
-          style={{ width: "15%", height: "40px", marginLeft: "10px", color: "gray"}}
+          style={{ width: "15%", height: "40px", marginLeft: "10px", color: "gray" }}
         >
           {/* <Option> */}
           <option value="">카테고리 선택</option>
@@ -187,7 +185,7 @@ const MakePost = () => {
               </option>
             );
           })}
-        </select>{" "}
+        </select>{""}
       </WrapTitleInput>
       <div style={{display: "flex", alignItems: "center", justifyContent: "center"}}>
         <InputPrice type="number" ref={RefPrice} placeholder="가격(선택사항)" />
