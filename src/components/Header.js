@@ -2,19 +2,19 @@ import React from 'react'
 import styled from 'styled-components';
 import axios from "axios";
 import { Button } from '@material-ui/core';
-import { 
-  useNavigate,
-  // useParams
- } from 'react-router-dom'
-import { useDispatch } from "react-redux";
+import { useNavigate, useParams } from 'react-router-dom'
+import { useDispatch, useSelector } from "react-redux";
 
 const Header = () => {
+  const [isLogin, setIsLogin] = React.useState(false);
+  console.log(isLogin)
+
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  const auth ={
-    Authorization:sessionStorage.getItem("accessToken"),
-    refresh_token:sessionStorage.getItem("refreshToken")
+  const auth = {
+    authorization:sessionStorage.getItem("access_token"),
+    refresh_token:sessionStorage.getItem("refresh_token")
     }
 
   // React.useEffect(() => {
@@ -33,26 +33,36 @@ const Header = () => {
   //       window.alert("정보 불러오기 실패!");
   //     });
   // })
+
   const onClickSignUp = () => {
-    sessionStorage.getItem("accessToken")
+    sessionStorage.getItem("access_token")
     navigate('/signup')
     }
 
   const onClickLogin = () => {
-    sessionStorage.getItem("accessToken")
+    sessionStorage.getItem("access_token")
     navigate("/login");
   }
 
   const onClickLogOut = () => {
-    sessionStorage.clear("accessToken")
+    sessionStorage.clear("access_token")
     window.alert("로그아웃!")
     navigate("/");
   }
 
-  const isLogin = () => {
-    sessionStorage.getItem("accessToken")
-    console.log("로그인 햇어?", isLogin)
-  }
+  React.useEffect(() => {
+    // sessionStorage 가져오기
+    let isLogin = sessionStorage.getItem("access_token");
+    // sessionStorage 확인
+    console.log("로그인 했어?", isLogin);
+    // sessionStorage가 있으면?
+    if(isLogin){
+        setIsLogin(true);
+    }else{
+        setIsLogin(false);
+    }
+  });
+
 
   return (
     <div className="App">
@@ -61,12 +71,12 @@ const Header = () => {
           navigate("/")
         }} style={{ color: 'firebrick', fontSize: '24px', cursor: "pointer" }}>FleaMarket</Logo>
 
-        <Text>토마</Text> 
-        {/* {nickname.params} */}
+        <Text>토마</Text>
+        {/* console.log() */}
 
         {/* 로그인 전 상태 */}
-        
-          { isLogin ? (
+
+          {!isLogin ? (
             <BtngruopBf>
           <Button onClick={onClickLogin} style={{ color: 'gray', margin: "0px 8px 0px 0px" }} variant="outlined" color="inherit">
             Login</Button>
@@ -78,7 +88,7 @@ const Header = () => {
             navigate('/Makepost/0')
           }}
           style={{ color: 'gray', margin: "0px 8px 0px 0px" }} variant="outlined" color="inherit">
-            작성하기 / Logout</Button>
+            작성하기</Button>
           <Button onClick={onClickLogOut} style={{ color: 'gray' }} variant="outlined" color="inherit">
             LogOut</Button>
             </BtngruopBf>)}

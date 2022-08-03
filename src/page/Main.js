@@ -28,9 +28,9 @@ const Main = () => {
     //       });
       
     //       const CreateBoardAXImg = await apiMain
-    //         .get("/api/posts?keyword=""&location=""&size=8&lastId=8") // 로그인 후 "지역" 처리 - "posts?size=12&page=0"
-    //         .then(function (response) {
-    //           console.log(response, "에러 놉");
+    //         .get("/api/posts?keyword=""&location="지역"&size=8&lastId=8") // 로그인 후 "지역" 처리 - "posts?size=12&page=0"
+    //         .then(function (response.data) {
+    //           console.log(response.data, "데이터 불러오기");
     //         })
     //         .catch(function (error) {
     //           console.log("실패: 400 BAD_REQUEST", error);
@@ -93,7 +93,7 @@ const Wrap = styled.div`
   mwidth: 100vw;
   position: relative;
   height: 100%;
-  // margin: 0 auto;
+  margin: 0 auto;
   // background-color: yellow;
 `;
 
@@ -118,7 +118,6 @@ const CardList = styled.div`
   flex-direction: row;
   flex-basis: 33.3%;
   flex-wrap : wrap;
-
 
   // border: 5px solid red;
   // background-color: blue;
