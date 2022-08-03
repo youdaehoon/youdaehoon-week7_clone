@@ -1,5 +1,8 @@
-import React from "react";
+import React, { useEffect } from "react";
 import styled from "styled-components";
+import axios from "axios";
+import loadPostDB from"../redux/modules/post"
+
 import SearchIcon from '@material-ui/icons/Search';
 
 import { useDispatch, useSelector } from "react-redux";
@@ -9,74 +12,57 @@ import Cards from "../components/Cards";
 
 const Main = () => {
   const data = useSelector((state) => state.post.post);
+  const [postData,setPostData]=React.useState();
   // console.log("나야나", data);
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  
+
   const auth = {
-    authorization:sessionStorage.getItem("access_token"),
-    refresh_token:sessionStorage.getItem("refresh_token")
-    }
+    authorization: sessionStorage.getItem("access_token"),
+    refresh_token: sessionStorage.getItem("refresh_token")
+  }
 
-    // React.useEffect(() => {
-    //     const apiMain = axios.create({
-    //         baseURL: "http://ec2-54-180-105-24.ap-northeast-2.compute.amazonaws.com",
-    //         headers: {
-    //           "Content-Type": "application/json",
-    //         },
-    //       });
-      
-    //       const CreateBoardAXImg = await apiMain
-    //         .get("/api/posts?keyword=""&location=""&size=8&lastId=8") // 로그인 후 "지역" 처리 - "posts?size=12&page=0"
-    //         .then(function (response) {
-    //           console.log(response, "에러 놉");
-    //         })
-    //         .catch(function (error) {
-    //           console.log("실패: 400 BAD_REQUEST", error);
-    //         });
-    // })
+  const address = sessionStorage.getItem("address")
+  // console.log("주소 있어?", address);
 
+
+
+  useEffect(() => {
+    // dispatch(loadPostDB())
+  }, []);
 
   return (
     <>
-    <div style={{ width: "100vw", height: "450px",
-    display: "flex",
-    alignItems: "center",
-    justifyContent: "center",
-    // position: "absolute", top: "0", left: "-25%", bottom: "0", right: "0",
-    backgroundColor: "#FBF7F2"}}>
-      <MainBanner
-        className="ManiBanner"
-        alt="main"
-        src="/images/MainBanner.png"
-        // style={{ marginLeft: "-50%"}}
-        // style={{ backgroundColor: "#FBF7F2", width: "200%", height: "450px"}}
+      <div style={{display: "flex", alignItems: "center", justifyContent: "center", backgroundColor: "#FBF7F2"
+      }}>
+        <MainBanner
+          className="ManiBanner"
+          alt="main"
+          src="/images/MainBanner.png"
         />
-        </div>
-        <Wrap>
+      </div>
+      <Wrap>
         <H2>중고거래 인기매물</H2>
         <SearchContainer>
           <Search
-          placeholder="물품이나 동네를 검색해보세요!"
-           />
-          {/* <SearchIcon /> */}
+            placeholder="물품이나 동네를 검색해보세요!"
+          />
         </SearchContainer>
-  
+
         <CardList>
-        {/* // style={{backgroundColor: 'gray'}} */}
-        {data.map((v, idx) => (
-          <CardsBox
-            onClick={() => {
-              navigate(`/detail/${v.postId}`);
-            }}
-            key={idx}
-          >
-            <Cards post={v} />
-          </CardsBox>
-        ))}
+          {data.map((v, idx) => (
+            <CardsBox
+              onClick={() => {
+                navigate(`/detail/${v.postId}`);
+              }}
+              key={idx}
+            >
+              <Cards post={v} />
+            </CardsBox>
+          ))}
         </CardList>
-        </Wrap>
+      </Wrap>
     </>
   );
 };
@@ -93,12 +79,13 @@ const Wrap = styled.div`
   mwidth: 100vw;
   position: relative;
   height: 100%;
-  // margin: 0 auto;
+  margin: 0 auto;
   // background-color: yellow;
 `;
 
 const H2 = styled.div`
   font-size: 1.5rem;
+  margin-top: 20px;
   margin-bottom: 20px;
   display: flex;
   align-items: center;
@@ -108,16 +95,10 @@ const H2 = styled.div`
 const CardList = styled.div`
   width: 100%;
   height: 100%;
-  // padding-left: 80px;
-  // margin: 0 auto;
-  // margin-left: 150px;
-  // margin-right: 150px;
-
   display:flex;
   flex-direction: row;
   flex-basis: 33.3%;
   flex-wrap : wrap;
-
 
   // border: 5px solid red;
   // background-color: blue;
@@ -127,8 +108,9 @@ const CardsBox = styled.div`
   width: 195px;
   height: 100%;
   margin-bottom : 4%;
-  margin-left: 4%;
-  margin-right: 4%;  
+  margin-left: 2%;
+  margin-right: 2%;
+
   // border: 5px solid red;
   // background-color: blue;
 `;

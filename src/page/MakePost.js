@@ -133,20 +133,17 @@ const MakePost = () => {
 
       <WrapTitle>
         <PostTitle>중고거래 글쓰기</PostTitle>
-
-        {true&&<button>예시</button>}
-        <Button style={{color: 'gray', margin: "0px 100px 0px 0px"}} variant="outlined" color="inherit">
-          예시</Button>
-
-        {postId=="0"?<button style={{ width: "200px" }} onClick={MakePostAX}>
-          작성하기
-        </button> : <button 
-        style={{ color: 'white'}} variant="outlined" color="inherit"
-        onClick={UpdatePostAX}>
-          수정하기
-        </button>}
         
-     
+        {postId == "0" ? <Button
+        style={{color: 'gray', marginRight: "100px"}} variant="outlined" color="inherit"
+        onClick={MakePostAX}>
+          작성
+        </Button> : <Button
+        style={{color: 'gray', marginRight: "100px"}} variant="outlined" color="inherit"
+        onClick={UpdatePostAX}>
+          수정
+        </Button>}
+        
       </WrapTitle>
       <div
         style={{
@@ -165,7 +162,7 @@ const MakePost = () => {
         />
         {ImageFile.lengh !== 0 && (
           <img
-            style={{ width:'150px', height: "100%", objectFit: "cover", marginLeft: "20px"}}
+            style={{ width:'150px', height: "100%", objectFit: "cover", marginLeft: "20px" }}
             src={ShowImg}
           />
         )}
@@ -176,7 +173,7 @@ const MakePost = () => {
         <select
           id="pet-select"
           ref={RefCategory}
-          style={{ width: "15%", height: "40px", marginLeft: "10px", color: "gray"}}
+          style={{ width: "15%", height: "40px", marginLeft: "10px", color: "gray" }}
         >
           {/* <Option> */}
           <option value="">카테고리 선택</option>
@@ -188,7 +185,7 @@ const MakePost = () => {
               </option>
             );
           })}
-        </select>{" "}
+        </select>{""}
       </WrapTitleInput>
       <div style={{display: "flex", alignItems: "center", justifyContent: "center"}}>
         <InputPrice type="number" ref={RefPrice} placeholder="가격(선택사항)" />
@@ -245,8 +242,10 @@ const PostTitle = styled.div`
   font-size: 20px;
   font-weight: bold;
   width: 70%;
+  height: 30px;
   text-align: center;
   margin-left: 55px;
+  backgroud-color: red;
 `;
 
 const WrapTitleInput = styled.div`

@@ -92,4 +92,4 @@ console.log(auth)
     )
 }
 
-export default ChatRoom
+export default ChatRoom;
