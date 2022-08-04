@@ -31,6 +31,10 @@ const apiLogin = axios.create({              // 전역으로 axios 객체 만들
         // console.log(response.data.userInfo)      // tokenBox의 토큰 저장하는 것 <- 로그인 성공 시 respond로 받는 토큰을 저장해야 함. sessionStorage.setItem 이용!
         sessionStorage.setItem("access_token", response.data.tokenBox.accessToken)    // setItem: (key, value값)을 sessionStorage에 저장한다! -> getItem으로 꺼내올 수 있다.
         sessionStorage.setItem("refresh_token", response.data.tokenBox.refreshToken)
+        sessionStorage.setItem("profile", response.data.userInfoDto.profile)
+        sessionStorage.setItem("nickname", response.data.userInfoDto.nickname)
+        sessionStorage.setItem("address", response.data.userInfoDto.address)
+
       })
       .catch(function (error) {
         console.log("에러 발생", error);

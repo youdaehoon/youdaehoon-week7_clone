@@ -38,7 +38,7 @@ const Detail = (props) => {
     title: "팝니다 팝니다 제목이 들어가용",
     category: "카테고리.",
 
-    price: "10,000",
+    price: "10000",
     content: "팝니다 팝니다 내용이 들어가용",
     status: "판매상태",
 
@@ -65,16 +65,17 @@ const Detail = (props) => {
     refresh_token: sessionStorage.getItem("refresh_token")
   }
 
+
   // React.useEffect( async() => {
   //   const apiDetail = axios.create({
   //   baseURL: "ec2-54-180-105-24.ap-northeast-2.compute.amazonaws.com",
-  //       headers: {
-  //         "Content-Type": `application/json`, 
-  //       },
+  //   headers: {
+  //     "Content-Type": `application/json`, 
+  //   },
   //     });
 
   //     const CreateBoardAXImg = await apiDetail
-  //       .get("/api/posts/1")
+  //       .get("/api/{postId}")
   //       .then(function (response) {
   //         console.log(response, "에러안남!!!!!");
   //         console.log('보내주신data는',response.data)
@@ -84,7 +85,6 @@ const Detail = (props) => {
   //         console.log("에러났음.", error)
   //       });
   // }, []);
-
 
 
   // 삭제
@@ -111,7 +111,7 @@ const Detail = (props) => {
 
   return (
       <Wrap>
-        <div style={{display: "flex", alignItems: "right", justifyContent: "right", marginRight: "10px"}}>
+        <div style={{display: "flex", justifyContent: "right", marginRight: "10px"}}>
           <Button onClick={ApiDetailDel} style={{ color: 'gray', margin: "0px 8px 0px 0px" }} variant="outlined" color="inherit">
             삭제</Button>
           <Button onClick={ModdifyPost} style={{ color: 'gray' }} variant="outlined" color="inherit">
@@ -157,12 +157,17 @@ const Detail = (props) => {
 
         <div>
           <Title>{dataTest.title}</Title>
+          <WrapTitle>
           <Price>{dataTest.price}</Price>
-
-
+          <div style={{marginLeft: "79%"}}>
+          <Button
+        // onClick={ApiDetailDel}
+        style={{ color: 'gray'}} variant="outlined" color="inherit">
+            거래 채팅하기</Button>
+            </div>
+          </WrapTitle>
           <Content>{dataTest.content}</Content>
         </div>
-
         <LikeView>{dataTest.view} ∙ {dataTest.like}</LikeView>
         </PostDetail>
       </Wrap>
@@ -179,6 +184,14 @@ const Wrap = styled.div`
   padding: 20px 20px 20px 20px;
   border: solid 1px #dadada;
   border-radius: 8px;
+`;
+
+const WrapTitle = styled.div`
+  display: flex;
+  align-items: left;
+  justify-content: left;
+  width: 100%;
+  margin-top: 10px;
 `;
 
 // const Image = styled.img`
@@ -203,6 +216,7 @@ const Address = styled.div`
 
 const Title = styled.div`
   position: relative;
+  margin-top: 20px;
   font-size: 24px;
   font-weight: bold;
   padding-bottom: 5px;

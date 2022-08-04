@@ -35,7 +35,7 @@ const MakePost = () => {
   const formData = new FormData();
 
   const { postId } = useParams();
-  console.log("postid값은~~~",postId,typeof(postId));
+  console.log("postid값은~~~", postId, typeof(postId));
 
   const MakePostAX = async () => {
     const data = {
@@ -77,10 +77,12 @@ const MakePost = () => {
     const CreateBoardAXImg = await apiImg
       .post("api/post", formData)
       .then(function (response) {
-        console.log(response, "에러안남!!!!!");
+        console.log(response, "성공!");
+        alert("작성 완료!");
+        navigate("/");
       })
       .catch(function (error) {
-        console.log("에러났음.", error);
+        console.log(error, "에러..");
       });
     }
 
@@ -121,10 +123,12 @@ const MakePost = () => {
     const CreateBoardAXImg = await apiImg
       .put("/api/post/1", UpdateformData)
       .then(function (response) {
-        console.log(response, "에러안남!!!!!");
+        console.log(response, "성공!");
+        alert("수정 완료!");
+        navigate("/");
       })
       .catch(function (error) {
-        console.log("에러났음.", error);
+        console.log(error, "에러..");
       });
   };
 
@@ -162,7 +166,7 @@ const MakePost = () => {
         />
         {ImageFile.lengh !== 0 && (
           <img
-            style={{ width:'150px', height: "100%", objectFit: "cover", marginLeft: "20px" }}
+            style={{ width:"150px", height: "100%", objectFit: "cover", marginLeft: "20px" }}
             src={ShowImg}
           />
         )}

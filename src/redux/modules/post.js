@@ -7,7 +7,7 @@ import axios from "axios"; //axios: node.js와 브라우저를 위한 Promise �
 //Actions
 const LOAD = "post/LOAD";
 const UPDATE = "post/UPDATE";
-const CREATE_POST = "post/CREATE_POST";
+const CREATEPOST = "post/CREATEPOST";
 
 
 //reducer이 사용할 initialState
@@ -119,23 +119,35 @@ export function loadPost(post) {
   
   export function updatePost(post, params) {
     console.log("확인", post, params)
-    return { type: UPDATE, post, params }
+    return { type: UPDATE, payload: {post, params} }
   }
   
   export function createPost(post) {
-    return { type: CREATE_POST, post }
+    return { type: CREATEPOST, post }
   }
   
   // middlewares
   export const loadPostDB = () => {
     return async function (dispatch) {
-      try {
-        const res = await axios.get("http://ec2-54-180-105-24.ap-northeast-2.compute.amazonaws.com/post");
+      await axios
+      .get("http://ec2-54-180-105-24.ap-northeast-2.compute.amazonaws.com/api/posts?location=ABC&size=8&lastId=5", {
+        headers: {
+          "Content-Type": "application/json"
+        }
+      }).then((response) => {
+        console.log(response, "데이터 불러오기");
+        dispatch(createPost(response.data.content));
+      })
+      .catch((error) => {
+        console.log("실패: 400 BAD_REQUEST", error);
+      });
+    //   try {
+    //     const res = await axios.get("http://ec2-54-180-105-24.ap-northeast-2.compute.amazonaws.com/post");
   
-        dispatch(loadPost(res.data))
-      } catch(error) {
-        console.log(error)
-      }
+    //     dispatch(loadPost(res.data))
+    //   } catch(error) {
+    //     console.log(error)
+    //   }
     }
   }
   
@@ -160,9 +172,10 @@ export function loadPost(post) {
           return {...state}
         }
   
-        case "post/CREATE_POST" : {
-          const new_post = [ ...state.post, action.post ]
-          return { ...state, post: new_post }
+        case "post/CREATEPOST" : {
+          const new_post = [...state.post, ...action.post]
+          state.post = new_post
+          return { ...state }
         }
   
       default: return state;
