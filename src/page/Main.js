@@ -29,7 +29,17 @@ const Main = () => {
 
 
   useEffect(() => {
-    // dispatch(loadPostDB())
+//     await axios
+// .get("http://ec2-54-180-105-24.ap-northeast-2.compute.amazonaws.com/api/posts?location=ABC&size=8&lastId=5", {
+// headers: {
+// "Content-Type": "application/json"
+// }
+// }).then((response) => {
+// console.log(response, "데이터 불러오기");
+// })
+// .catch((error) => {
+// console.log("실패: 400 BAD_REQUEST", error);
+// });
   }, []);
 
   return (

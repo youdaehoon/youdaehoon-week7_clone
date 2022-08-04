@@ -128,23 +128,9 @@ export function loadPost(post) {
   }
   
   // middlewares
-  export const loadPostDB = () => {
+  export const loadPostDB = ( ) => {
     return async function (dispatch) {
-      await axios
-      .get("http://ec2-54-180-105-24.ap-northeast-2.compute.amazonaws.com/api/posts?location=ABC&size=8&lastId=5", {
-        headers: {
-          "Content-Type": "application/json"
-        }
-      }).then((response) => {
-        console.log(response, "데이터 불러오기");
-        console.log(response.data.content, "데이터 불러오기");
-      
-        //  dispatch(loadPost(response.data.content))
-        
-      })
-      .catch((error) => {
-        console.log("실패: 400 BAD_REQUEST", error);
-      });
+     
     }
   }
   

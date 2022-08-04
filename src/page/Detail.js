@@ -88,6 +88,38 @@ const Detail = (props) => {
       });
     console.log("삭제됨!", ApiDetailDel)
   }
+  const connect =async()=>{
+    console.log({tradeId:'31'})
+    let data2={tradeId:'31'};
+let data=JSON.stringify({tradeId:'31'});
+
+const auth={
+authorization:sessionStorage.getItem("access_token"),
+refresh_token:sessionStorage.getItem("refresh_token")
+}
+console.log(`Bearer ${auth.authorization}`)
+console.log(auth)
+    const apiImg = axios.create({
+      baseURL: "http://ec2-54-180-105-24.ap-northeast-2.compute.amazonaws.com/",   
+      headers: {
+        Authorization: `Bearer ${auth.authorization}`,
+        refresh_token: `Bearer ${auth.refresh_token}`,
+        "Content-Type": "application/json"
+      }
+    });
+
+    const CreateBoardAXImg = await apiImg 
+      .post("/chat", data)
+      .then(function (response) {
+        console.log(response, "에러안남!!!!!");
+      })
+      .catch(function (error) {
+        console.log("에러났음.", error);
+      });
+
+
+
+    } 
 
 
   return (
