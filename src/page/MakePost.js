@@ -35,7 +35,7 @@ const MakePost = () => {
   const formData = new FormData();
 
   const { postId } = useParams();
-  console.log("postid값은~~~",postId,typeof(postId));
+  console.log("postid값은~~~", postId, typeof(postId));
 
   const MakePostAX = async () => {
     const data = {
@@ -54,17 +54,11 @@ const MakePost = () => {
     }
    
     formData.append("content", RefContent.current.value);
-    console.log("보내는 데이터 file형식은", formData);
-    console.log("file 안에서 data의 형식 및 이름은", data);
     const auth={
       authorization:sessionStorage.getItem("access_token"),
       refresh_token:sessionStorage.getItem("refresh_token")
      }
-    //  console.log(auth);
-    //  console.log(`Bearer ${auth.authorization}`)
-    //  console.log(`Bearer ${auth.refresh_token}`)
-    
-    
+   
     const apiImg = axios.create({
       baseURL: "http://ec2-54-180-105-24.ap-northeast-2.compute.amazonaws.com/",   
       headers: {
@@ -77,10 +71,12 @@ const MakePost = () => {
     const CreateBoardAXImg = await apiImg 
       .post("api/post", formData)
       .then(function (response) {
-        console.log(response, "에러안남!!!!!");
+        console.log(response, "성공!");
+        alert("작성 완료!");
+        navigate("/");
       })
       .catch(function (error) {
-        console.log("에러났음.", error);
+        console.log(error, "에러..");
       });
     }
 
@@ -121,10 +117,12 @@ const MakePost = () => {
     const CreateBoardAXImg = await apiImg
       .put("/api/post/1", UpdateformData)
       .then(function (response) {
-        console.log(response, "에러안남!!!!!");
+        console.log(response, "성공!");
+        alert("수정 완료!");
+        navigate("/");
       })
       .catch(function (error) {
-        console.log("에러났음.", error);
+        console.log(error, "에러..");
       });
   };
 
@@ -162,7 +160,7 @@ const MakePost = () => {
         />
         {ImageFile.lengh !== 0 && (
           <img
-            style={{ width:'150px', height: "100%", objectFit: "cover", marginLeft: "20px" }}
+            style={{ width:"150px", height: "100%", objectFit: "cover", marginLeft: "20px" }}
             src={ShowImg}
           />
         )}

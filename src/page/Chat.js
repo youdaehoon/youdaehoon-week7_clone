@@ -12,7 +12,7 @@ const ChatRoom = () => {
   const [dataFromSoket, setdataFromSoket] = React.useState([]);
   const [message, setmessage] = React.useState(true);
 
-   console.log("11")
+  //  console.log("11")
   // react와 연결한다.
   const connect = async () => {
     let data = JSON.stringify({ tradeId: "32" });
@@ -69,11 +69,13 @@ const ChatRoom = () => {
   };
 
   const onMessageReceived = (payload) => {
+    // console.log("parse하기전",payload)
     var payloadData = JSON.parse(payload.body);
+    // console.log("여기화인!!!!!!!!!!!!!!!!!!!!!!!",payloadData)
+    setdataFromSoket([...dataFromSoket,payloadData]);
     
-    setdataFromSoket(dataFromSoket.push(payloadData));
-    console.log("이거봐보자!",dataFromSoket,payloadData)
   };
+  console.log("이거봐보자!",dataFromSoket)
   const sendMessage = () => {
    
   };
@@ -93,7 +95,7 @@ const ChatRoom = () => {
           dataFromSoket.map((v, i) => {
             return (
               <div>
-                text:{v}
+                text:{v.message}
               </div>
             );
           })

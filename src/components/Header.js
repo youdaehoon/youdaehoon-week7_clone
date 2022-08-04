@@ -45,7 +45,7 @@ const Header = () => {
   }
 
   const onClickLogOut = () => {
-    sessionStorage.clear("access_token")
+    sessionStorage.clear()
     window.alert("로그아웃!")
     navigate("/");
   }
@@ -56,11 +56,11 @@ const Header = () => {
 
   React.useEffect(() => {
     // sessionStorage 가져오기
-    let isLogin = sessionStorage.getItem("access_token");
+    let isLoginCheck = sessionStorage.getItem("access_token");
     // sessionStorage 확인
-    // console.log("로그인 했어?", isLogin);
+    console.log("로그인 했어?", isLogin);
     // sessionStorage가 있으면?
-    if (isLogin) {
+    if (isLoginCheck) {
       setIsLogin(true);
     } else {
       setIsLogin(false);
@@ -123,13 +123,13 @@ const Header = () => {
         }} style={{ color: 'firebrick', fontSize: '24px', cursor: "pointer" }}>FleaMarket</Logo>
 
         {/* 로그인 전 상태 */}
-        {!isLogin ? (
+        {true? 
           <Btngruop>
             <Button onClick={onClickLogin} style={{ color: 'gray', margin: "0px 8px 0px 0px" }} variant="outlined" color="inherit">
               Login</Button>
             <Button onClick={onClickSignUp} style={{ color: 'gray' }} variant="outlined" color="inherit">
               회원가입</Button>
-          </Btngruop>) : (
+          </Btngruop>: 
 
 
           <Btngruop>
@@ -141,7 +141,7 @@ const Header = () => {
               작성하기</Button>
             <Button onClick={onClickLogOut} style={{ color: 'gray' }} variant="outlined" color="inherit">
               LogOut</Button>
-          </Btngruop>)}
+          </Btngruop>}
       </Nav>
     </div>
   );

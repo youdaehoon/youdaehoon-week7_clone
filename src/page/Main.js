@@ -1,20 +1,18 @@
 import React, { useEffect } from "react";
 import styled from "styled-components";
 import axios from "axios";
-import loadPostDB from"../redux/modules/post"
 
-import SearchIcon from '@material-ui/icons/Search';
+// import SearchIcon from '@material-ui/icons/Search';
 
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 
 import Cards from "../components/Cards";
+import { loadPostDB } from "../redux/modules/post";
 
 const Main = () => {
   const data = useSelector((state) => state.post.post);
   const [postData,setPostData]=React.useState();
-  // console.log("나야나", data);
-
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
@@ -22,24 +20,14 @@ const Main = () => {
     authorization: sessionStorage.getItem("access_token"),
     refresh_token: sessionStorage.getItem("refresh_token")
   }
-
   const address = sessionStorage.getItem("address")
-  // console.log("주소 있어?", address);
 
-
+  const loadData = useSelector((state) => state.post.post);
+  console.log("힝왤캐안됑?",loadData)
 
   useEffect(() => {
-//     await axios
-// .get("http://ec2-54-180-105-24.ap-northeast-2.compute.amazonaws.com/api/posts?location=ABC&size=8&lastId=5", {
-// headers: {
-// "Content-Type": "application/json"
-// }
-// }).then((response) => {
-// console.log(response, "데이터 불러오기");
-// })
-// .catch((error) => {
-// console.log("실패: 400 BAD_REQUEST", error);
-// });
+    dispatch(loadPostDB());
+    
   }, []);
 
   return (
@@ -61,7 +49,7 @@ const Main = () => {
         </SearchContainer>
 
         <CardList>
-          {data.map((v, idx) => (
+          {data?.map((v, idx) => (
             <CardsBox
               onClick={() => {
                 navigate(`/detail/${v.postId}`);
