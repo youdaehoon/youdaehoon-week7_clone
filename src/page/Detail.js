@@ -159,7 +159,7 @@ const Detail = (props) => {
           <Title>{dataTest.title}</Title>
           <WrapTitle>
           <Price>{dataTest.price}</Price>
-          <div style={{marginLeft: "255px"}}>
+          <div style={{marginLeft: "79%"}}>
           <Button
         // onClick={ApiDetailDel}
         style={{ color: 'gray'}} variant="outlined" color="inherit">

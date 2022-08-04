@@ -2,12 +2,13 @@ import React, { useEffect } from "react";
 import styled from "styled-components";
 import axios from "axios";
 
-import SearchIcon from '@material-ui/icons/Search';
+// import SearchIcon from '@material-ui/icons/Search';
 
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 
 import Cards from "../components/Cards";
+import { loadPostDB } from "../redux/modules/post";
 
 const Main = () => {
   const data = useSelector((state) => state.post.post);
@@ -24,22 +25,25 @@ const Main = () => {
   const address = sessionStorage.getItem("address")
   // console.log("주소 있어?", address);
 
-  const MainAX = async () => {
-    await axios
-      .get("http://ec2-54-180-105-24.ap-northeast-2.compute.amazonaws.com/api/posts?location=ABC&size=8&lastId=5", {
-        headers: {
-          "Content-Type": "application/json"
-        }
-      }).then((response) => {
-        console.log(response, "데이터 불러오기");
-      })
-      .catch((error) => {
-        console.log("실패: 400 BAD_REQUEST", error);
-      });
-  }
+  // const MainAX = async () => {
+    // await axios
+    //   .get("http://ec2-54-180-105-24.ap-northeast-2.compute.amazonaws.com/api/posts?location=ABC&size=8&lastId=5", {
+    //     headers: {
+    //       "Content-Type": "application/json"
+    //     }
+    //   }).then((response) => {
+    //     console.log(response, "데이터 불러오기");
+    //   })
+    //   .catch((error) => {
+    //     console.log("실패: 400 BAD_REQUEST", error);
+    //   });
+  // }
+
+  const loadData = useSelector((state) => state.post.post);
+  console.log(loadData)
 
   useEffect(() => {
-    MainAX();
+    dispatch(loadPostDB());
   }, []);
 
   return (
