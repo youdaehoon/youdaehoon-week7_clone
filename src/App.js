@@ -22,7 +22,7 @@ function App() {
         <Route path="/login" element={<Login />} />
         <Route path="/detail/:postId" element={<Detail />} />
         <Route path="/makepost/:postId" element={<MakePost />} />
-        <Route path="/chat" element={<Chat />} />
+        <Route path="/chat/"  element={<Chat />} />
       </Routes>
       {/* </H2> */}
     </div>

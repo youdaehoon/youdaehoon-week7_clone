@@ -54,17 +54,11 @@ const MakePost = () => {
     }
    
     formData.append("content", RefContent.current.value);
-    console.log("보내는 데이터 file형식은", formData);
-    console.log("file 안에서 data의 형식 및 이름은", data);
     const auth={
       authorization:sessionStorage.getItem("access_token"),
       refresh_token:sessionStorage.getItem("refresh_token")
      }
-    //  console.log(auth);
-    //  console.log(`Bearer ${auth.authorization}`)
-    //  console.log(`Bearer ${auth.refresh_token}`)
-    
-    
+   
     const apiImg = axios.create({
       baseURL: "http://ec2-54-180-105-24.ap-northeast-2.compute.amazonaws.com/",   
       headers: {
@@ -74,7 +68,7 @@ const MakePost = () => {
       }
     });
 
-    const CreateBoardAXImg = await apiImg
+    const CreateBoardAXImg = await apiImg 
       .post("api/post", formData)
       .then(function (response) {
         console.log(response, "성공!");

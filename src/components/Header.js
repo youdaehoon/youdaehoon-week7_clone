@@ -45,24 +45,67 @@ const Header = () => {
   }
 
   const onClickLogOut = () => {
-    sessionStorage.clear("access_token")
+    sessionStorage.clear()
     window.alert("로그아웃!")
     navigate("/");
+  }
+  const gochat=()=>{
+    navigate(`/chat/`)
+    
   }
 
   React.useEffect(() => {
     // sessionStorage 가져오기
-    let isLogin = sessionStorage.getItem("access_token");
+    let isLoginCheck = sessionStorage.getItem("access_token");
     // sessionStorage 확인
-    // console.log("로그인 했어?", isLogin);
+    console.log("로그인 했어?", isLogin);
     // sessionStorage가 있으면?
-    if (isLogin) {
+    if (isLoginCheck) {
       setIsLogin(true);
     } else {
       setIsLogin(false);
     }
   });
 
+  if ("accessToken") {
+  return (
+    <div className="App">
+      <Nav>
+        <Logo onClick={() => {
+          navigate("/")
+        }} style={{ color: 'firebrick', fontSize: '24px', cursor: "pointer" }}>토마토마켓</Logo>
+ <button onClick={gochat}>나의 채팅 보여주기</button>
+        <Text>토마</Text> 
+        {/* {nickname.params} */}
+        {/* 로그인 전 상태
+        <BtngruopBf>
+          <Button onClick={() => {
+            navigate('/login')
+          }} style={{ color: 'gray', margin: "0px 8px 0px 0px" }} variant="outlined" color="inherit">
+            Login</Button>
+          <Button onClick={() => {
+            navigate('/signup')
+          }} style={{ color: 'gray' }} variant="outlined" color="inherit">
+            회원가입</Button>
+        </BtngruopBf> */}
+
+
+        {/* 로그인 후 상태 */}
+        <Btngruop>
+          <Button onClick={() => {
+            navigate('/Makepost/0')
+          }} style={{ color: 'gray', margin: "0px 8px 0px 0px" }} variant="outlined" color="inherit">
+            작성하기
+          </Button>
+          <Button onClick={onClickLogOut}
+            style={{ color: 'gray' }} variant="outlined" color="inherit">
+            로그아웃</Button>
+        </Btngruop>
+       
+      </Nav>
+    </div>
+  );
+};
   const nickname = sessionStorage.getItem("nickname")
   // console.log("닉네임 있어?", nickname);
 
@@ -80,13 +123,13 @@ const Header = () => {
         }} style={{ color: 'firebrick', fontSize: '24px', cursor: "pointer" }}>FleaMarket</Logo>
 
         {/* 로그인 전 상태 */}
-        {!isLogin ? (
+        {true? 
           <Btngruop>
             <Button onClick={onClickLogin} style={{ color: 'gray', margin: "0px 8px 0px 0px" }} variant="outlined" color="inherit">
               Login</Button>
             <Button onClick={onClickSignUp} style={{ color: 'gray' }} variant="outlined" color="inherit">
               회원가입</Button>
-          </Btngruop>) : (
+          </Btngruop>: 
 
 
           <Btngruop>
@@ -98,7 +141,7 @@ const Header = () => {
               작성하기</Button>
             <Button onClick={onClickLogOut} style={{ color: 'gray' }} variant="outlined" color="inherit">
               LogOut</Button>
-          </Btngruop>)}
+          </Btngruop>}
       </Nav>
     </div>
   );

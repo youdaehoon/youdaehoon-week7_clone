@@ -3,29 +3,10 @@ import styled from "styled-components";
 import { Button } from '@material-ui/core';
 import axios from "axios";
 import { useLocation, useNavigate, useParams } from "react-router-dom";
+import { over } from "stompjs";
+import SockJS from "sockjs-client";
 
-// {
-//   postId: “post 아이디”
-//   seller: {
-//       nickname: “닉네임”,
-//       profile: “프로필 사진 주소”,
-//       address: “주소”
-//   } 
-//   title: "제목입니다",
-//   category: “카테고리”,
-//   price: 가격,
-//   content: “본문”,
-//   
-//   createdAt: “시간”,
-//   like: 좋아요 수,
-//   view: 조회 수,
-//   image: [
-//       이미지 경로1,
-//       이미지 경로2,
-//       이미지 경로3,
-//       ….
-//   ]
-// }
+var stompClient = null;
 
 const Detail = (props) => {
   const [dataTest, setdataTest] = React.useState({
@@ -54,8 +35,8 @@ const Detail = (props) => {
 
   let { postId } = useParams(); // 이름을 맞춰주면 된다 
   const navigation = useNavigate();
-
-  console.log(postId) // console 한번 확인해보세요!
+console.log("여기확인",postId)
+ 
   const ModdifyPost = () => {
     navigation(`/makepost/${postId}`)
   }
@@ -64,49 +45,112 @@ const Detail = (props) => {
     authorization: sessionStorage.getItem("access_token"),
     refresh_token: sessionStorage.getItem("refresh_token")
   }
+const detailLoad=async()=>{
+  const apiDetail = axios.create({
+    baseURL: "http://ec2-54-180-105-24.ap-northeast-2.compute.amazonaws.com",
+    headers: {
+      "Content-Type": `application/json`, 
+    }
+      });
 
+      const CreateBoardAXImg = await apiDetail
+        .get(`/api/post/${postId}`)
+        .then(function (response) {
+          console.log(response, "에러안남!!!!!");
+          console.log('보내주신data는',response.data)
+          setdataTest(response.data)
+        })
+        .catch(function (error) {
+          console.log("에러났음.", error)
+        });
+}
 
-  // React.useEffect( async() => {
-  //   const apiDetail = axios.create({
-  //   baseURL: "ec2-54-180-105-24.ap-northeast-2.compute.amazonaws.com",
-  //   headers: {
-  //     "Content-Type": `application/json`, 
-  //   },
-  //     });
-
-  //     const CreateBoardAXImg = await apiDetail
-  //       .get("/api/{postId}")
-  //       .then(function (response) {
-  //         console.log(response, "에러안남!!!!!");
-  //         console.log('보내주신data는',response.data)
-  //         setdataTest(response.data)
-  //       })
-  //       .catch(function (error) {
-  //         console.log("에러났음.", error)
-  //       });
-  // }, []);
+  React.useEffect( () => {
+    detailLoad();
+  }, []);
 
 
   // 삭제
-  const ApiDetailDel = () => {
-    axios.delete("/ec2-54-180-105-24.ap-northeast-2.compute.amazonaws.com/post/{postId}",
-      {
-        headers: {
-          Authorization: `Bearer ${auth.authorization}`,
+  const ApiDetailDel = async() => {
+    const apiDetail = axios.create({
+      baseURL: "http://ec2-54-180-105-24.ap-northeast-2.compute.amazonaws.com",
+      headers: {
+        Authorization: `Bearer ${auth.authorization}`,
           refresh_token: `Bearer ${auth.refresh_token}`,
-          "Content-Type": "multipart/form-data"
-        }
-      })
+      }
+        });
+  
+        const CreateBoardAXImg = await apiDetail
+          .delete(`/api/post/${postId}`)
+          .then(function (response) {
+            console.log(response, "에러안남!!!!!");
+            console.log('보내주신data는',response.data)
+            setdataTest(response.data)
+          })
+          .catch(function (error) {
+            console.log("에러났음.", error)
+          });
+
+          navigation(`/`)
+
+
+
+
+
+
+
+
+    // axios.delete(`ec2-54-180-105-24.ap-northeast-2.compute.amazonaws.com/api/post/${postId}`,
+    //   {
+    //     headers: {
+    //       Authorization: `Bearer ${auth.authorization}`,
+    //       refresh_token: `Bearer ${auth.refresh_token}`,
+    //     }
+    //   })
+    //   .then(function (response) {
+    //     // handle success
+    //     console.log(response, "에러 놉!");
+    //   })
+    //   .catch(function (error) {
+    //     // handle error
+    //     console.log(error, "에러 남!");
+    //   });
+   
+  }
+
+  const connect =async()=>{
+    console.log({tradeId:'31'})
+    let data2={tradeId:'31'};
+let data=JSON.stringify({tradeId:'31'});
+
+const auth={
+authorization:sessionStorage.getItem("access_token"),
+refresh_token:sessionStorage.getItem("refresh_token")
+}
+console.log(`Bearer ${auth.authorization}`)
+console.log(auth)
+    const apiImg = axios.create({
+      baseURL: "http://ec2-54-180-105-24.ap-northeast-2.compute.amazonaws.com/",   
+      headers: {
+        Authorization: `Bearer ${auth.authorization}`,
+        refresh_token: `Bearer ${auth.refresh_token}`,
+        "Content-Type": "application/json"
+      }
+    });
+
+    const CreateBoardAXImg = await apiImg 
+      .post("/chat", data)
       .then(function (response) {
-        // handle success
-        console.log(response, "에러 놉!");
+        console.log(response, "에러안남!!!!!");
+        
       })
       .catch(function (error) {
-        // handle error
-        console.log(error, "에러 남!");
+        console.log("에러났음.", error);
       });
-    console.log("삭제됨!", ApiDetailDel)
-  }
+
+
+
+    } 
 
 
   return (
@@ -120,23 +164,23 @@ const Detail = (props) => {
 
         <div style={{display: "flex", alignItems: "center", justifyContent: "center"
           }}>
-        <img src={dataTest.image[0]}
+        {/* <img src={dataTest.image[0]}
           style={{
             width: "400px", height: "100%", marginBottom: "40px",  marginTop: "40px",
             display: "flex", alignItems: "center", justifyContent: "center"
-          }} />
+          }} /> */}
           </div>
 
         <PostDetail>
           <div style={{ display: "flex", alignItems: "center" }}>
-            <img src={dataTest.seller.profile}
+            <img src={dataTest?.seller.profile}
               style={{ width: "50px", height: "50px", borderRadius: "25px", backgroundColor: "gray" }} />
           </div>
 
           <div>
             <div style={{ fontWeight: "bold", marginBottom: "2px" }}>
-              {dataTest.seller.nickname}</div>
-            <Address>{dataTest.seller.address}</Address>
+              {dataTest?.seller.nickname}</div>
+            <Address>{dataTest?.seller.address}</Address>
           </div>
 
         <hr />
@@ -155,10 +199,11 @@ const Detail = (props) => {
       </TradeState> */}
         </div>
 
+
         <div>
-          <Title>{dataTest.title}</Title>
+          <Title>{dataTest?.title}</Title>
           <WrapTitle>
-          <Price>{dataTest.price}</Price>
+          <Price>{dataTest?.price}</Price>
           <div style={{marginLeft: "79%"}}>
           <Button
         // onClick={ApiDetailDel}
@@ -166,9 +211,9 @@ const Detail = (props) => {
             거래 채팅하기</Button>
             </div>
           </WrapTitle>
-          <Content>{dataTest.content}</Content>
+          <Content>{dataTest?.content}</Content>
         </div>
-        <LikeView>{dataTest.view} ∙ {dataTest.like}</LikeView>
+        <LikeView>{dataTest?.view} ∙ {dataTest?.like}</LikeView>
         </PostDetail>
       </Wrap>
   );
