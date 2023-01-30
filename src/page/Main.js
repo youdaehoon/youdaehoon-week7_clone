@@ -41,7 +41,7 @@ const Main = () => {
         />
       </div>
       <Wrap>
-        <H2>중고거래 인기매물</H2>
+        <H2>유대훈이 </H2>
         <SearchContainer>
           <Search
             placeholder="물품이나 동네를 검색해보세요!"
